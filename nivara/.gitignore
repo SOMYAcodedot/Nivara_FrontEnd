@@ -1,23 +1,77 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
+# ========== Dependencies ==========
 /node_modules
 /.pnp
 .pnp.js
+npm-shrinkwrap.json
 
-# testing
+# ========== Testing ==========
 /coverage
+.nyc_output
 
-# production
+# ========== Production Build ==========
 /build
+/dist
 
-# misc
-.DS_Store
+# ========== Environment Variables ==========
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
+# ========== Logs ==========
 npm-debug.log*
+npm-error.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ========== IDE & Editor ==========
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.history/
+.DS_Store
+Thumbs.db
+
+# ========== Package Manager Lock Files ==========
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ========== Cache ==========
+.eslintcache
+.node_repl_history
+.cache
+.parcel-cache
+.next
+out
+
+# ========== Temporary Files ==========
+*.tmp
+*.temp
+*.bak
+*.swp
+*.back
+
+# ========== OS Specific ==========
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
