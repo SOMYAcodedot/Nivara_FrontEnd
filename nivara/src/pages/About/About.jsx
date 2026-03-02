@@ -22,7 +22,7 @@ const About = () => {
     {
       icon: <FaHandsHelping />,
       title: "Support Groups",
-      description: "Join community sessions, talk to counselors, and get help from mental health professionals."
+      description: "Join community sessions, talk to counselors, and get help from women's health professionals."
     }
   ];
 
@@ -30,12 +30,12 @@ const About = () => {
     {
       icon: <FaShieldAlt />,
       title: "Privacy First",
-      description: "Your mental health data is always secure and confidential."
+      description: "Your women's health data is always secure and confidential."
     },
     {
       icon: <FaUsers />,
       title: "Community Driven",
-      description: "Built with input from mental health professionals and users."
+      description: "Built with input from women's health professionals and users."
     },
     {
       icon: <FaLightbulb />,
@@ -50,10 +50,10 @@ const About = () => {
   ];
 
   const team = [
-    { name: "Dr. Sarah Chen", role: "Chief Medical Officer", avatar: "👩‍⚕️" },
-    { name: "Alex Rivera", role: "AI Lead", avatar: "👨‍💻" },
-    { name: "Dr. Maya Patel", role: "Clinical Psychologist", avatar: "👩‍🔬" },
-    { name: "James Wilson", role: "Product Designer", avatar: "👨‍🎨" }
+    { name: "Dr. Somya", role: "Chief Medical Officer", avatar: "👩‍⚕️" },
+    { name: "Prajwal", role: "AI Lead", avatar: "👨‍💻" },
+    { name: "Dr. Aparna", role: "Clinical Psychologist", avatar: "👩‍🔬" },
+    { name: "Ganesh", role: "Product Designer", avatar: "👨‍🎨" }
   ];
 
   return (
@@ -63,9 +63,7 @@ const About = () => {
         <div className="hero-content">
           <h1>About <span className="gradient-text">Nivara</span></h1>
           <p>
-            Nivara is an AI-driven mental health platform designed to provide personalized therapy, 
-            mood tracking, and emotional support. Our mission is to make mental health care 
-            accessible, affordable, and stigma-free.
+            Nivara combines cutting-edge AI technology with compassionate care to support women's health journey. AI-Driven Holistic Health Systems for Women. Supporting your wellness journey with personalized therapy, mood tracking, and compassionate care. Get personalized therapy, mood tracking, and 24/7 support.
           </p>
         </div>
       </section>
@@ -76,13 +74,13 @@ const About = () => {
           <div className="mission-text">
             <h2>Our Mission</h2>
             <p>
-              We believe everyone deserves access to quality mental health support. 
+              We believe everyone deserves access to quality women's health support. 
               Nivara combines cutting-edge AI technology with evidence-based therapeutic 
-              approaches to create a safe, supportive environment for mental wellness.
+              approaches to create a safe, supportive environment for holistic health.
             </p>
             <p>
               Whether you're dealing with everyday stress or more significant challenges, 
-              we're here to help you on your journey to better mental health.
+              we're here to help you on your journey to better women's health.
             </p>
           </div>
           <div className="mission-stats">
@@ -133,7 +131,7 @@ const About = () => {
       {/* Team Section */}
       <section className="team-section">
         <h2>Meet Our Team</h2>
-        <p className="team-subtitle">Dedicated professionals committed to your mental wellness</p>
+        <p className="team-subtitle">Dedicated professionals committed to your women's health</p>
         <div className="team-grid">
           {team.map((member, index) => (
             <div key={index} className="team-card">
@@ -148,7 +146,7 @@ const About = () => {
       {/* CTA Section */}
       <section className="about-cta">
         <h2>Ready to Start Your Journey?</h2>
-        <p>Join thousands of users who have transformed their mental health with Nivara</p>
+        <p>Join thousands of users who have transformed their women's health with Nivara</p>
         <a href="/signup" className="btn btn-white">Get Started Free</a>
       </section>
     </div>

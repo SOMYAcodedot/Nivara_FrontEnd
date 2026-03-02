@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRobot, FaBrain, FaChartLine, FaHeadset, FaClipboardCheck, FaArrowRight, FaPlay } from "react-icons/fa";
+import Carousel from "../../components/Carousel/Carousel";
 import "./Home.css";
 
 const features = [
@@ -94,6 +95,9 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+      {/* Carousel Section */}
+      <Carousel />
 
       {/* Features Section */}
       <section className="features-section">

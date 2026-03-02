@@ -1,5 +1,3 @@
-
-
 // import React from "react";
 // import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 // import "./App.css";
@@ -17,7 +15,6 @@ import "./App.css";
 // Components
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import Carousel from "./components/Carousel";
 // import Chatbot from "./components/Chatbot";
 // import TherapyBooking from "./pages/TherapyBooking"; // Uncomment if exists
 // import MoodTracker from "./components/MoodTracker"; // Uncomment if exists
@@ -52,7 +49,7 @@ function App() {
         <div className="main-content">
           <Routes>
             {/* Public Routes */}
-            <Route path="/" element={<><Home /><Carousel /></>} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
