@@ -27,7 +27,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/auth/signup/",
+        "http://127.0.0.1:8000/api/auth/signup/",
         formData,
         {
           headers: { "Content-Type": "application/json" },

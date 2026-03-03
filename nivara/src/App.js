@@ -17,7 +17,6 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 // import Chatbot from "./components/Chatbot";
 // import TherapyBooking from "./pages/TherapyBooking"; // Uncomment if exists
-// import MoodTracker from "./components/MoodTracker"; // Uncomment if exists
 // import StressRelief from "./components/StressRelief/StressRelief"; // Uncomment if exists
 
 // Pages
@@ -27,6 +26,7 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
+import MoodTracker from "./pages/MoodTracker/MoodTracker";
 
 // Stress Relief Activities (Uncomment if these exist)
 // import Games from "./components/StressRelief/Games/Games";
@@ -57,8 +57,8 @@ function App() {
 
             {/* Now all routes are public */}
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/mood-tracker" element={<MoodTracker />} />
             {/* Uncomment below if these components exist */}
-            {/* <Route path="/mood-tracker" element={<MoodTracker />} /> */}
             {/* <Route path="/chat" element={<Chatbot />} /> */}
             {/* <Route path="/therapy-booking" element={<TherapyBooking />} /> */}
 

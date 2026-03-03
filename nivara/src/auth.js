@@ -9,7 +9,7 @@
 //   }
 
 //   try {
-//     const response = await axios.post("http://127.0.0.1:8000/api/token/refresh/", {
+//     const response = await axios.post("http://127.0.0.1:8000/api/auth/token/refresh/", {
 //       refresh: refresh, // ✅ Send refresh token in request
 //     });
 
