@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaChartLine, FaRobot, FaGamepad, FaCalendarCheck, FaSmile, FaMeh, FaFrown, FaArrowRight, FaBrain, FaHeart } from "react-icons/fa";
+import { FaChartLine, FaRobot, FaGamepad, FaCalendarCheck, FaSmile, FaMeh, FaFrown, FaArrowRight, FaBrain, FaHeart, FaFemale } from "react-icons/fa";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -26,6 +26,13 @@ const Dashboard = () => {
       icon: <FaChartLine />,
       color: "#4CAF50",
       link: "/mood-tracker"
+    },
+    {
+      title: "Cycle Tracking",
+      description: "Track your menstrual cycle and wellness",
+      icon: <FaFemale />,
+      color: "#E91E63",
+      link: "/cycle-tracker"
     },
     {
       title: "AI Chatbot",

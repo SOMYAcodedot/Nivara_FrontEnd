@@ -1,0 +1,588 @@
+.cycle-dashboard {
+  width: 100%;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+/* Loading & Error */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 15px;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #E91E63;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Card Styling */
+.cycle-card,
+.status-card,
+.calendar-card,
+.phase-info-card,
+.insights-card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Status Card */
+.status-card {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.status-header {
+  margin-bottom: 25px;
+}
+
+.phase-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.phase-badge svg {
+  font-size: 1.2rem;
+}
+
+.cycle-day-display {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.cycle-day-number {
+  display: block;
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.cycle-day-label {
+  display: block;
+  font-size: 1.1rem;
+  color: #666;
+  margin-top: 5px;
+}
+
+.countdown-section {
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+}
+
+.countdown-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.countdown-icon {
+  font-size: 2rem;
+  color: #E91E63;
+}
+
+.countdown-info {
+  text-align: left;
+}
+
+.countdown-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.countdown-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.predicted-date {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 10px;
+}
+
+.fertile-alert,
+.pms-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  border-radius: 12px;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+.fertile-alert {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(46, 125, 50, 0.1) 100%);
+  color: #2e7d32;
+}
+
+.fertile-alert svg {
+  color: #4CAF50;
+  font-size: 1.2rem;
+}
+
+.pms-alert {
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.1) 0%, rgba(106, 27, 154, 0.1) 100%);
+  color: #6a1b9a;
+}
+
+.pms-alert svg {
+  color: #9C27B0;
+  font-size: 1.2rem;
+}
+
+/* Calendar Card */
+.calendar-card {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.calendar-header h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  flex: 1;
+  text-align: center;
+}
+
+.calendar-header .nav-btn {
+  min-width: 40px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid #E91E63;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #E91E63;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.calendar-header .nav-btn:hover {
+  background: #E91E63;
+  color: white;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day-header {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #888;
+  padding: 8px 0;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  min-height: 80px;
+  gap: 2px;
+}
+
+.calendar-day.empty {
+  cursor: default;
+}
+
+.calendar-day:hover:not(.empty) {
+  background: #f5f5f5;
+}
+
+.day-number {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  flex-shrink: 0;
+}
+
+.calendar-day.today {
+  background: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+}
+
+.calendar-day.today .day-number {
+  color: white;
+  font-weight: 700;
+}
+
+.calendar-day.period {
+  background: rgba(233, 30, 99, 0.2);
+}
+
+.calendar-day.predicted-period {
+  background: rgba(233, 30, 99, 0.1);
+  border: 1px dashed #E91E63;
+}
+
+.calendar-day.fertile {
+  background: rgba(76, 175, 80, 0.15);
+}
+
+.calendar-day.ovulation {
+  background: rgba(255, 152, 0, 0.2);
+}
+
+.calendar-day.pms {
+  background: rgba(156, 39, 176, 0.1);
+}
+
+.day-indicators {
+  display: flex;
+  gap: 3px;
+  position: absolute;
+  bottom: 3px;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.day-phase-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: white;
+  background: rgba(233, 30, 99, 0.8);
+  padding: 2px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.period-ind {
+  background: #E91E63;
+}
+
+.predicted-ind {
+  background: #E91E63;
+  opacity: 0.5;
+}
+
+.fertile-ind {
+  background: #4CAF50;
+}
+
+.ovulation-ind {
+  background: #FF9800;
+}
+
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-dot.period {
+  background: #E91E63;
+}
+
+.legend-dot.predicted {
+  background: #E91E63;
+  opacity: 0.5;
+}
+
+.legend-dot.fertile {
+  background: #4CAF50;
+}
+
+.legend-dot.ovulation {
+  background: #FF9800;
+}
+
+/* Phase Info Card */
+.phase-info-card {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.phase-description {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.phase-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+
+.detail-icon {
+  color: #E91E63;
+  font-size: 1.1rem;
+  margin-top: 2px;
+}
+
+.detail-label {
+  display: block;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.phase-tips {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.05) 0%, rgba(156, 39, 176, 0.05) 100%);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.phase-tips h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: #E91E63;
+  margin-bottom: 10px;
+}
+
+.phase-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.phase-tips li {
+  font-size: 0.9rem;
+  color: #555;
+  padding: 6px 0;
+  padding-left: 15px;
+  position: relative;
+}
+
+.phase-tips li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #E91E63;
+}
+
+/* Insights Card */
+.insights-card {
+  grid-column: 1 / 3;
+}
+
+.insight-summary {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.05) 0%, rgba(156, 39, 176, 0.05) 100%);
+  border-radius: 12px;
+}
+
+.hormone-connection,
+.recommendations {
+  margin-bottom: 20px;
+}
+
+.hormone-connection h4,
+.recommendations h4 {
+  font-size: 0.95rem;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+.hormone-connection p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.recommendations ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recommendations li {
+  font-size: 0.95rem;
+  color: #555;
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.recommendations li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4CAF50;
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .status-card {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .calendar-card {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .phase-info-card {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .insights-card {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .cycle-day-number {
+    font-size: 2.5rem;
+  }
+
+  .calendar-day-header {
+    font-size: 0.7rem;
+  }
+
+  .day-number {
+    font-size: 0.8rem;
+  }
+
+  .day-phase-label {
+    font-size: 0.55rem;
+    padding: 1px 3px;
+  }
+
+  .calendar-day {
+    min-height: 70px;
+  }
+
+  .calendar-legend {
+    gap: 10px;
+  }
+
+  .legend-item {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .phase-badge {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .cycle-day-number {
+    font-size: 2rem;
+  }
+
+  .countdown-box {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .countdown-info {
+    text-align: center;
+  }
+}

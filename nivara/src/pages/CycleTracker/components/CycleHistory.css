@@ -1,0 +1,432 @@
+.cycle-history {
+  width: 100%;
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 15px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #E91E63;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* View Toggle */
+.view-toggle {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.toggle-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+  color: #E91E63;
+  background: #fce4ec;
+}
+
+.toggle-btn.active {
+  background: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+  color: white;
+  box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+}
+
+/* History Section */
+.history-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+}
+
+.history-section h3 svg {
+  color: #E91E63;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: #ddd;
+  margin-bottom: 15px;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.empty-state span {
+  font-size: 0.9rem;
+  color: #999;
+}
+
+/* Period Log Cards */
+.period-logs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.period-log-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.period-log-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.log-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.start-date {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.start-date svg {
+  color: #E91E63;
+}
+
+.end-date {
+  font-size: 0.9rem;
+  color: #666;
+  margin-left: 24px;
+}
+
+.log-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.action-btn.delete {
+  background: #ffebee;
+  color: #ef5350;
+}
+
+.action-btn.delete:hover {
+  background: #ef5350;
+  color: white;
+}
+
+.log-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.detail-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #f5f5f5;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #555;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.detail-badge.pain {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.flow-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.log-notes {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+}
+
+/* Delete Confirmation */
+.delete-confirm {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.delete-confirm p {
+  font-size: 1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.confirm-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.confirm-btn.cancel {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.confirm-btn.cancel:hover {
+  background: #e0e0e0;
+}
+
+.confirm-btn.delete {
+  background: #ef5350;
+  color: white;
+}
+
+.confirm-btn.delete:hover {
+  background: #c62828;
+}
+
+/* Check-in Logs */
+.checkin-logs {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.checkin-log-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.checkin-date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f5f5f5;
+}
+
+.checkin-date svg {
+  color: #E91E63;
+}
+
+.checkin-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.checkin-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.row-label {
+  font-size: 0.85rem;
+  color: #888;
+  min-width: 70px;
+  font-weight: 500;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.mood-tag {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.1) 0%, rgba(156, 39, 176, 0.1) 100%);
+  color: #9C27B0;
+}
+
+.symptom-tag {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.energy-badge {
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.energy-badge.very_low,
+.energy-badge.low {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.energy-badge.moderate {
+  background: #fff8e1;
+  color: #f57f17;
+}
+
+.energy-badge.high {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.checkin-notes {
+  font-size: 0.9rem;
+  color: #666;
+  font-style: italic;
+  margin-top: 5px;
+  padding-top: 10px;
+  border-top: 1px dashed #eee;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .view-toggle {
+    flex-direction: column;
+  }
+
+  .toggle-btn {
+    padding: 12px 15px;
+  }
+
+  .log-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .log-actions {
+    align-self: flex-end;
+  }
+
+  .checkin-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .row-label {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .period-log-card,
+  .checkin-log-card {
+    padding: 15px;
+  }
+
+  .detail-badge {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+}

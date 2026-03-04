@@ -1,0 +1,337 @@
+.cycle-insights {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  gap: 15px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #E91E63;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Insight Highlight */
+.insight-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.08) 0%, rgba(156, 39, 176, 0.08) 100%);
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+.highlight-icon {
+  font-size: 1.5rem;
+  color: #E91E63;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.insight-highlight p {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Insights List */
+.insights-list {
+  margin-bottom: 25px;
+}
+
+.insights-list h4,
+.hormone-section h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+}
+
+.insights-list h4 svg {
+  color: #E91E63;
+}
+
+.insights-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.insights-list li {
+  font-size: 0.95rem;
+  color: #555;
+  padding: 10px 0 10px 25px;
+  position: relative;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.insights-list li:last-child {
+  border-bottom: none;
+}
+
+.insights-list li::before {
+  content: "💡";
+  position: absolute;
+  left: 0;
+  font-size: 0.9rem;
+}
+
+/* Hormone Section */
+.hormone-section {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 15px;
+}
+
+.hormone-section h4 svg {
+  color: #E91E63;
+}
+
+.hormone-section p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Recommendations Card */
+.recommendations-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.recommendation-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.recommendation-item:hover {
+  background: #f0f0f0;
+}
+
+.rec-number {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.recommendation-item p {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Irregularity Card */
+.regularity-status {
+  margin-bottom: 25px;
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+}
+
+.status-indicator.regular {
+  background: linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(46, 125, 50, 0.15) 100%);
+  color: #2e7d32;
+}
+
+.status-indicator.irregular {
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(230, 81, 0, 0.15) 100%);
+  color: #e65100;
+}
+
+.analysis-content {
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.stat-row:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.irregularity-notes,
+.irregularity-recs {
+  margin-top: 20px;
+}
+
+.irregularity-notes h4,
+.irregularity-recs h4 {
+  font-size: 0.95rem;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+
+.irregularity-notes ul,
+.irregularity-recs ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.irregularity-notes li,
+.irregularity-recs li {
+  font-size: 0.9rem;
+  color: #555;
+  padding: 8px 0 8px 20px;
+  position: relative;
+}
+
+.irregularity-notes li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #FF9800;
+  font-weight: 700;
+}
+
+.irregularity-recs li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4CAF50;
+  font-weight: 700;
+}
+
+/* Connection Card */
+.connection-content {
+  padding: 0;
+}
+
+.connection-intro {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  padding: 15px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  border-radius: 12px;
+}
+
+.phase-moods {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.phase-mood-item {
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.phase-mood-item:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+}
+
+.phase-mood-item h5 {
+  font-size: 1rem;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+
+.phase-mood-item p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .phase-moods {
+    grid-template-columns: 1fr;
+  }
+
+  .insight-highlight {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .stat-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .insight-highlight p {
+    font-size: 0.95rem;
+  }
+
+  .phase-mood-item {
+    padding: 15px;
+  }
+
+  .phase-mood-item h5 {
+    font-size: 0.95rem;
+  }
+
+  .phase-mood-item p {
+    font-size: 0.85rem;
+  }
+}
