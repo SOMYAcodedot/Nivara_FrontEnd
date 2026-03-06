@@ -26,6 +26,7 @@ import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
+import ProfileSetup from "./pages/ProfileSetup/ProfileSetup";
 import MoodTracker from "./pages/MoodTracker/MoodTracker";
 import CycleTracker from "./pages/CycleTracker/CycleTracker";
 
@@ -55,6 +56,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/profile-setup" element={<ProfileSetup />} />
 
             {/* Now all routes are public */}
             <Route path="/dashboard" element={<Dashboard />} />
