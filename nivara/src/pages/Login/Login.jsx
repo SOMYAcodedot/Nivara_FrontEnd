@@ -41,7 +41,22 @@ const Login = () => {
 
       setMessage("Login Successful ✅");
 
-      navigate("/dashboard");
+      // Check if profile is complete before redirecting
+      try {
+        const profileRes = await axios.get(
+          "http://127.0.0.1:8000/api/user/profile-status/",
+          { headers: { Authorization: `Bearer ${response.data.access}` } }
+        );
+        
+        if (profileRes.data.is_profile_complete) {
+          navigate("/dashboard");
+        } else {
+          navigate("/profile-setup");
+        }
+      } catch {
+        // If profile check fails, proceed to dashboard
+        navigate("/dashboard");
+      }
 
     } catch (error) {
       console.log("Error:", error.response);
