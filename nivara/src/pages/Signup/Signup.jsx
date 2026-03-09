@@ -42,8 +42,9 @@ const Signup = () => {
 
       setMessage("Signup Successful ✅");
 
+      // Redirect to profile setup for new users
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/profile-setup");
       }, 1000);
 
     } catch (error) {
