@@ -30,6 +30,7 @@ import ProfileSetup from "./pages/ProfileSetup/ProfileSetup";
 import MoodTracker from "./pages/MoodTracker/MoodTracker";
 import CycleTracker from "./pages/CycleTracker/CycleTracker";
 import LifestyleIntelligence from "./pages/LifestyleIntelligence/LifestyleIntelligence";
+import HealthReport from "./pages/HealthReport/HealthReport";
 
 // Stress Relief Activities (Uncomment if these exist)
 // import Games from "./components/StressRelief/Games/Games";
@@ -64,6 +65,7 @@ function App() {
             <Route path="/mood-tracker" element={<MoodTracker />} />
             <Route path="/cycle-tracker" element={<CycleTracker />} />
             <Route path="/lifestyle-intelligence" element={<LifestyleIntelligence />} />
+            <Route path="/health-report" element={<HealthReport />} />
             {/* Uncomment below if these components exist */}
             {/* <Route path="/chat" element={<Chatbot />} /> */}
             {/* <Route path="/therapy-booking" element={<TherapyBooking />} /> */}
