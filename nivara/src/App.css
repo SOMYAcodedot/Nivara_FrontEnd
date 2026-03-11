@@ -165,3 +165,22 @@ img {
   background: rgba(102, 126, 234, 0.3);
   color: #1a1a2e;
 }
+
+/* ===== Print: hide nav/footer so PDF shows only report content ===== */
+@media print {
+  .navbar,
+  .footer,
+  .footer-wave,
+  .footer-content {
+    display: none !important;
+  }
+
+  .App {
+    display: block;
+  }
+
+  .main-content {
+    padding: 0;
+    display: block;
+  }
+}
