@@ -67,16 +67,26 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Wellness Tip */
+/* Daily Wellness Tip card - left: tip, right: AI Health Report link */
 .wellness-tip {
   display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 25px 30px;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 15px;
   margin-bottom: 30px;
   color: white;
+  overflow: hidden;
+}
+
+.wellness-tip-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px 30px;
+  flex: 1;
+  min-width: 0;
 }
 
 .tip-icon {
@@ -88,6 +98,7 @@
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  flex-shrink: 0;
 }
 
 .tip-content h4 {
@@ -100,6 +111,62 @@
 .tip-content p {
   font-size: 1.1rem;
   font-weight: 500;
+}
+
+/* Right side of wellness card: AI Health Report */
+.wellness-tip-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  min-width: 260px;
+  background: rgba(255, 255, 255, 0.15);
+  border-left: 2px solid rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.wellness-tip-right:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+.tip-right-icon {
+  width: 46px;
+  height: 46px;
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.tip-right-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tip-right-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: white;
+}
+
+.tip-right-desc {
+  font-size: 0.85rem;
+  opacity: 0.95;
+}
+
+.tip-right-arrow {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  flex-shrink: 0;
 }
 
 /* Dashboard Grid */
@@ -252,6 +319,22 @@
     padding: 20px;
   }
 
+  .wellness-tip {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .wellness-tip-left {
+    justify-content: center;
+  }
+
+  .wellness-tip-right {
+    min-width: 100%;
+    border-left: none;
+    border-top: 2px solid rgba(255, 255, 255, 0.35);
+    justify-content: center;
+  }
+
   .welcome-content h1 {
     font-size: 1.5rem;
   }
@@ -265,11 +348,6 @@
   .mood-buttons {
     width: 100%;
     justify-content: flex-start;
-  }
-
-  .wellness-tip {
-    flex-direction: column;
-    text-align: center;
   }
 
   .dashboard-grid {
