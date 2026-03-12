@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaChartLine, FaRobot, FaGamepad, FaCalendarCheck, FaSmile, FaMeh, FaFrown, FaArrowRight, FaBrain, FaHeart, FaFemale } from "react-icons/fa";
+import { FaChartLine, FaRobot, FaGamepad, FaCalendarCheck, FaSmile, FaMeh, FaFrown, FaArrowRight, FaBrain, FaHeart, FaFemale, FaLeaf, FaFileAlt } from "react-icons/fa";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -49,11 +49,18 @@ const Dashboard = () => {
       link: "/stress-relief"
     },
     {
-      title: "Therapy Booking",
-      description: "Schedule sessions with therapists",
+      title: "Doctor Consultation",
+      description: "Book consultations with women's health specialists",
       icon: <FaCalendarCheck />,
       color: "#f093fb",
-      link: "/therapy-booking"
+      link: "/doctor-consultation"
+    },
+    {
+      title: "Lifestyle Intelligence",
+      description: "Personalized yoga, diet, sleep & emotional tips",
+      icon: <FaLeaf />,
+      color: "#26a69a",
+      link: "/lifestyle-intelligence"
     }
   ];
 
@@ -97,15 +104,27 @@ const Dashboard = () => {
         </div>
       </section>
 
-      {/* Wellness Tip */}
+      {/* Daily Wellness Tip card - left: tip, right: AI Health Report */}
       <section className="wellness-tip">
-        <div className="tip-icon">
-          <FaHeart />
+        <div className="wellness-tip-left">
+          <div className="tip-icon">
+            <FaHeart />
+          </div>
+          <div className="tip-content">
+            <h4>Daily Wellness Tip</h4>
+            <p>{randomTip}</p>
+          </div>
         </div>
-        <div className="tip-content">
-          <h4>Daily Wellness Tip</h4>
-          <p>{randomTip}</p>
-        </div>
+        <Link to="/health-report" className="wellness-tip-right" title="Open AI Health Report">
+          <div className="tip-right-icon">
+            <FaFileAlt />
+          </div>
+          <div className="tip-right-text">
+            <span className="tip-right-title">AI Health Report</span>
+            <span className="tip-right-desc">Generate & download your wellness report</span>
+          </div>
+          <FaArrowRight className="tip-right-arrow" />
+        </Link>
       </section>
 
       {/* Main Cards Grid */}
