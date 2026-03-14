@@ -1,0 +1,513 @@
+.health-report-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  padding: 100px 5% 60px;
+}
+
+/* Loading */
+.health-report-page .loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 20px;
+}
+
+.health-report-page .loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: health-report-spin 1s linear infinite;
+}
+
+@keyframes health-report-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.health-report-page .loading-container p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Page Header */
+.health-report-page .page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 28px;
+  color: white;
+  box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3);
+}
+
+.health-report-page .header-content h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  word-break: break-word;
+  line-height: 1.3;
+}
+
+.health-report-page .header-icon {
+  font-size: 1.8rem;
+}
+
+.health-report-page .header-content p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.health-report-page .refresh-btn,
+.health-report-page .export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.health-report-page .refresh-btn:hover:not(:disabled),
+.health-report-page .export-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  border-color: white;
+}
+
+.health-report-page .refresh-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.health-report-page .export-btn {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.health-report-page .refresh-btn .spin {
+  animation: health-report-spin 1s linear infinite;
+}
+
+/* Error */
+.health-report-page .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 40px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.health-report-page .error-icon {
+  font-size: 3rem;
+  color: #FF7043;
+}
+
+.health-report-page .error-container p {
+  color: #666;
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0;
+}
+
+/* AI Engine banner */
+.health-report-page .ai-engine-banner {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.health-report-page .ai-powered-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #667eea;
+  width: fit-content;
+}
+
+.health-report-page .ai-generated-by {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.health-report-page .ai-message,
+.health-report-page .ai-period,
+.health-report-page .ai-generated-at {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Report blocks */
+.report-block {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.report-block:hover {
+  border-color: #667eea20;
+}
+
+.block-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.block-title svg {
+  color: #667eea;
+}
+
+.professional-summary-text {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.insights-list {
+  margin: 0;
+  padding-left: 22px;
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.insights-list li {
+  margin-bottom: 8px;
+}
+
+/* Report sections */
+.report-sections .section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+.sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 22px;
+}
+
+.report-section-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #667eea;
+}
+
+.section-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 10px 0;
+}
+
+.section-summary {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.section-content {
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.section-content p,
+.section-content ul {
+  margin: 0 0 8px 0;
+}
+
+.section-content ul {
+  padding-left: 20px;
+}
+
+.report-content-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.report-content-list li {
+  margin-bottom: 6px;
+}
+
+/* Risk flags */
+.risk-flags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.risk-flag-item {
+  background: #fafafa;
+  border-radius: 12px;
+  padding: 16px;
+  border-left: 4px solid #666;
+}
+
+.risk-flag-severity {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.risk-flag-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 6px 0;
+}
+
+.risk-flag-desc {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0 0 6px 0;
+  line-height: 1.5;
+}
+
+.risk-flag-category {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+/* Suggestions */
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.suggestion-item {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid rgba(102, 126, 234, 0.15);
+}
+
+.suggestion-priority {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.suggestion-area {
+  font-size: 0.85rem;
+  color: #667eea;
+  font-weight: 600;
+  margin-left: 8px;
+}
+
+.suggestion-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 6px 0;
+}
+
+.suggestion-action {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.no-data-note {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .health-report-page {
+    padding: 90px 15px 40px;
+  }
+
+  .health-report-page .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 25px;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .health-report-page .refresh-btn,
+  .health-report-page .export-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .sections-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print (Export to PDF) - full content, no truncation */
+@media print {
+  .health-report-page {
+    background: white !important;
+    padding: 16px 20px !important;
+    min-height: auto !important;
+    max-width: 100% !important;
+  }
+
+  .health-report-page * {
+    overflow: visible !important;
+  }
+
+  .header-actions,
+  .health-report-page .refresh-btn,
+  .health-report-page .export-btn {
+    display: none !important;
+  }
+
+  .health-report-page .page-header {
+    box-shadow: none !important;
+    border: 1px solid #333 !important;
+    padding: 24px !important;
+    margin-bottom: 20px !important;
+    break-inside: avoid;
+  }
+
+  .health-report-page .header-content h1 {
+    font-size: 18pt !important;
+    line-height: 1.3 !important;
+  }
+
+  .health-report-page .header-content p {
+    font-size: 11pt !important;
+  }
+
+  .health-report-page .ai-engine-banner {
+    break-inside: avoid;
+    margin-bottom: 18px !important;
+  }
+
+  .health-report-page .ai-message,
+  .health-report-page .ai-period,
+  .health-report-page .ai-generated-at {
+    font-size: 10pt !important;
+  }
+
+  .report-block {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 18px !important;
+  }
+
+  .report-block .block-title {
+    font-size: 13pt !important;
+  }
+
+  .professional-summary-text,
+  .section-summary,
+  .section-content,
+  .risk-flag-desc,
+  .suggestion-action {
+    font-size: 11pt !important;
+    line-height: 1.5 !important;
+  }
+
+  .report-sections .section-title {
+    font-size: 13pt !important;
+    break-after: avoid;
+  }
+
+  .sections-grid {
+    display: block !important;
+  }
+
+  .report-section-card {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    border-left: 4px solid #667eea !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 16px !important;
+  }
+
+  .section-card-title {
+    font-size: 12pt !important;
+  }
+
+  .risk-flag-item,
+  .suggestion-item {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .insights-list li {
+    margin-bottom: 6px !important;
+  }
+}
