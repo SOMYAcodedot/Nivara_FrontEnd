@@ -31,6 +31,11 @@ import MoodTracker from "./pages/MoodTracker/MoodTracker";
 import CycleTracker from "./pages/CycleTracker/CycleTracker";
 import LifestyleIntelligence from "./pages/LifestyleIntelligence/LifestyleIntelligence";
 import HealthReport from "./pages/HealthReport/HealthReport";
+import DoctorConsultation from "./pages/DoctorConsultation/DoctorConsultation";
+import DoctorDetail from "./pages/DoctorConsultation/DoctorDetail/DoctorDetail";
+import CreateBooking from "./pages/DoctorConsultation/CreateBooking/CreateBooking";
+import Payment from "./pages/DoctorConsultation/Payment/Payment";
+import MyBookings from "./pages/DoctorConsultation/MyBookings/MyBookings";
 
 // Stress Relief Activities (Uncomment if these exist)
 // import Games from "./components/StressRelief/Games/Games";
@@ -66,6 +71,12 @@ function App() {
             <Route path="/cycle-tracker" element={<CycleTracker />} />
             <Route path="/lifestyle-intelligence" element={<LifestyleIntelligence />} />
             <Route path="/health-report" element={<HealthReport />} />
+            {/* Doctor Consultation (Phase 7) */}
+            <Route path="/doctor-consultation" element={<DoctorConsultation />} />
+            <Route path="/doctor-consultation/doctor/:doctorId" element={<DoctorDetail />} />
+            <Route path="/doctor-consultation/booking/new" element={<CreateBooking />} />
+            <Route path="/doctor-consultation/booking/:bookingId/pay" element={<Payment />} />
+            <Route path="/doctor-consultation/bookings" element={<MyBookings />} />
             {/* Uncomment below if these components exist */}
             {/* <Route path="/chat" element={<Chatbot />} /> */}
             {/* <Route path="/therapy-booking" element={<TherapyBooking />} /> */}
