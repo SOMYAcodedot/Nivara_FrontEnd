@@ -1,0 +1,373 @@
+.lifestyle-intelligence-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  padding: 100px 5% 60px;
+}
+
+/* Loading */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 20px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #26a69a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Page Header */
+.lifestyle-intelligence-page .page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: linear-gradient(135deg, #26a69a 0%, #00897b 100%);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 30px;
+  color: white;
+  box-shadow: 0 15px 50px rgba(38, 166, 154, 0.3);
+}
+
+.header-content h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-icon {
+  font-size: 1.8rem;
+}
+
+.header-content p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: white;
+}
+
+.refresh-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.refresh-btn .spin {
+  animation: spin 1s linear infinite;
+}
+
+/* AI Engine banner */
+.ai-engine-banner {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ai-powered-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #667eea;
+  width: fit-content;
+}
+
+.ai-powered-badge svg {
+  font-size: 1.1rem;
+}
+
+.ai-generated-by {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.ai-message {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Error */
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 40px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.error-icon {
+  font-size: 3rem;
+  color: #FF7043;
+}
+
+.error-container p {
+  color: #666;
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 0;
+}
+
+/* Context section */
+.context-section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  padding: 0 4px;
+}
+
+.context-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.context-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.context-card:hover {
+  border-color: #26a69a30;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.context-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.context-card-body h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.context-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0 0 4px 0;
+}
+
+.mood-score {
+  font-weight: 500;
+  color: #666;
+}
+
+.context-meta {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0;
+}
+
+/* Recommendations grid */
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.rec-card {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.rec-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  border-color: #26a69a20;
+}
+
+.rec-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.rec-card-header h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.rec-card-icon {
+  font-size: 1.5rem;
+  color: #26a69a;
+  flex-shrink: 0;
+}
+
+.yoga-card .rec-card-icon { color: #4CAF50; }
+.diet-card .rec-card-icon { color: #FF9800; }
+.sleep-card .rec-card-icon { color: #5C6BC0; }
+.emotional-card .rec-card-icon { color: #E91E63; }
+
+.rec-summary,
+.rec-target {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 14px 0;
+}
+
+.rec-target {
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.rec-list {
+  margin: 0;
+  padding-left: 20px;
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.rec-list li {
+  margin-bottom: 8px;
+}
+
+.rec-list li:last-child {
+  margin-bottom: 0;
+}
+
+.no-context-note {
+  text-align: center;
+  color: #666;
+  font-size: 1rem;
+  margin-top: 24px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lifestyle-intelligence-page {
+    padding: 90px 15px 40px;
+  }
+
+  .lifestyle-intelligence-page .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 25px;
+    border-radius: 15px;
+  }
+
+  .header-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-icon {
+    font-size: 1.4rem;
+  }
+
+  .header-content p {
+    font-size: 0.95rem;
+  }
+
+  .context-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .recommendations-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .rec-card {
+    padding: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content h1 {
+    font-size: 1.3rem;
+    gap: 10px;
+  }
+
+  .rec-card-header h2 {
+    font-size: 1.1rem;
+  }
+}
