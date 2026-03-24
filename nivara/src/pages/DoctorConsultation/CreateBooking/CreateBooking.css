@@ -1,0 +1,209 @@
+.create-booking-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+  padding: 100px 5% 60px;
+}
+
+.cb-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #667eea;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.cb-back-link:hover {
+  color: #764ba2;
+}
+
+.cb-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 36px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.cb-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cb-title svg {
+  color: #667eea;
+}
+
+.cb-doctor-name {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 28px;
+}
+
+.cb-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cb-field label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.cb-input,
+.cb-select,
+.cb-textarea {
+  padding: 12px 14px;
+  border: 2px solid #e4e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.cb-input:focus,
+.cb-select:focus,
+.cb-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.cb-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.cb-checkbox-field {
+  gap: 6px;
+}
+
+.cb-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #1a1a2e;
+}
+
+.cb-checkbox-label input {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+}
+
+.cb-checkbox-label span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cb-hint {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0 0 0 30px;
+}
+
+.cb-form-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  background: #ffebee;
+  border-radius: 10px;
+  color: #c62828;
+  font-size: 0.95rem;
+}
+
+.cb-submit-btn {
+  margin-top: 8px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.cb-submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.45);
+}
+
+.cb-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cb-loading,
+.cb-error-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 16px;
+}
+
+.cb-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: cb-spin 1s linear infinite;
+}
+
+@keyframes cb-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.cb-loading p,
+.cb-error-box p {
+  color: #666;
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+.cb-error-icon {
+  font-size: 3rem;
+  color: #FF7043;
+}
+
+.cb-error-box .cb-back-link {
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .create-booking-page {
+    padding: 90px 15px 40px;
+  }
+
+  .cb-card {
+    padding: 24px;
+  }
+}
