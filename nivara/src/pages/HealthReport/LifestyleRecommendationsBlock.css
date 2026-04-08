@@ -1,0 +1,134 @@
+.report-lifestyle-block {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border: 2px solid rgba(38, 166, 154, 0.2);
+}
+
+.report-lifestyle-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.report-lifestyle-header .block-title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.report-lifestyle-title-icon {
+  color: #26a69a;
+}
+
+.report-lifestyle-ai-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.report-lifestyle-rule-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #555;
+  background: #eee;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.report-lifestyle-lead {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+}
+
+.report-lifestyle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.report-lifestyle-card {
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid #e8e8ef;
+  background: #fafbfc;
+}
+
+.report-lifestyle-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1a1a2e;
+  margin-bottom: 12px;
+}
+
+.report-lifestyle-yoga .report-lifestyle-card-head svg {
+  color: #4caf50;
+}
+.report-lifestyle-diet .report-lifestyle-card-head svg {
+  color: #ff9800;
+}
+.report-lifestyle-sleep .report-lifestyle-card-head svg {
+  color: #5c6bc0;
+}
+.report-lifestyle-emotional .report-lifestyle-card-head svg {
+  color: #e91e63;
+}
+
+.report-lifestyle-summary,
+.report-lifestyle-target {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+  margin: 0 0 10px 0;
+}
+
+.report-lifestyle-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+.report-lifestyle-list li {
+  margin-bottom: 8px;
+}
+
+.report-lifestyle-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.report-lifestyle-meta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #26a69a;
+}
+
+.report-lifestyle-desc {
+  margin: 4px 0 0 0;
+  font-size: 0.88rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.report-lifestyle-cat {
+  display: block;
+  margin-bottom: 4px;
+}
