@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaRobot, FaBrain, FaChartLine, FaHeadset, FaClipboardCheck, FaArrowRight, FaPlay } from "react-icons/fa";
+import { motion, useReducedMotion } from "framer-motion";
+import { FaRobot, FaChartLine, FaHeadset, FaClipboardCheck, FaArrowRight, FaPlay } from "react-icons/fa";
+import NivaraButterflyMark from "../../components/NivaraButterflyMark/NivaraButterflyMark";
+import AnimatedStatNumber from "../../components/AnimatedStatNumber";
 import Carousel from "../../components/Carousel/Carousel";
+import HeroOrbit from "./components/HeroOrbit";
 import "./Home.css";
 
 const features = [
@@ -15,7 +19,7 @@ const features = [
     title: "Personalized Therapy",
     info: "AI-generated CBT exercises and therapy modules tailored to your individual needs.",
     color: "#f093fb",
-    icon: <FaBrain />,
+    icon: <NivaraButterflyMark variant="mono" decorative />,
   },
   {
     title: "Mood Tracking",
@@ -38,50 +42,94 @@ const features = [
 ];
 
 const stats = [
-  { number: "10K+", label: "Active Users" },
   { number: "95%", label: "Satisfaction Rate" },
   { number: "24/7", label: "Support Available" },
-  { number: "500+", label: "Expert Therapists" },
+  { number: "10+", label: "Expert Therapists" },
 ];
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
+  const reduceMotion = useReducedMotion();
+
+  const heroContainerVariants = useMemo(
+    () => ({
+      hidden: {},
+      visible: {
+        transition: {
+          staggerChildren: reduceMotion ? 0 : 0.09,
+          delayChildren: reduceMotion ? 0 : 0.05,
+        },
+      },
+    }),
+    [reduceMotion]
+  );
+
+  const heroItemVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0, y: reduceMotion ? 0 : 22 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: reduceMotion ? 0 : 0.58, ease: [0.22, 1, 0.36, 1] },
+      },
+    }),
+    [reduceMotion]
+  );
+
+  /** Opacity-only so CSS `heroBadgeFloat` can animate `transform` without fighting Framer. */
+  const heroBadgeVariants = useMemo(
+    () => ({
+      hidden: { opacity: 0 },
+      visible: {
+        opacity: 1,
+        transition: { duration: reduceMotion ? 0 : 0.52, ease: [0.22, 1, 0.36, 1] },
+      },
+    }),
+    [reduceMotion]
+  );
+
+  const heroVisualProps = reduceMotion
+    ? { className: "hero-visual-wrap" }
+    : {
+        className: "hero-visual-wrap",
+        initial: { opacity: 0, scale: 0.9, filter: "blur(12px)" },
+        animate: { opacity: 1, scale: 1, filter: "blur(0px)" },
+        transition: { duration: 0.92, delay: 0.12, ease: [0.22, 1, 0.36, 1] },
+      };
 
   return (
     <div className="home">
       {/* Hero Section */}
       <section className="hero">
-        <div className="hero-content">
-          <div className="hero-badge">🧠 AI-Powered Holistic Health Systems for Women</div>
-          <h1>Your Journey to <span className="gradient-text">Holistic Health</span> Starts Here</h1>
-          <p>
+        <motion.div
+          className="hero-content"
+          variants={heroContainerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div variants={heroBadgeVariants} className="hero-badge">
+            <NivaraButterflyMark className="hero-badge-icon" decorative />
+            <span>AI-Powered Holistic Health Systems for Women</span>
+          </motion.div>
+          <motion.h1 variants={heroItemVariants}>
+            Your Journey to <span className="gradient-text">Holistic Health</span> Starts Here
+          </motion.h1>
+          <motion.p variants={heroItemVariants}>
             Nivara combines cutting-edge AI technology with compassionate care to support women's health journey. AI-Driven Holistic Health Systems for Women. Supporting your wellness journey with personalized therapy, mood tracking, and compassionate care.
             Get personalized therapy, mood tracking, and 24/7 support.
-          </p>
-          <div className="hero-buttons">
+          </motion.p>
+          <motion.div variants={heroItemVariants} className="hero-buttons">
             <Link to="/signup" className="btn btn-primary">
               Get Started Free <FaArrowRight />
             </Link>
-            <button className="btn btn-outline" onClick={() => setShowModal(true)}>
+            <button type="button" className="btn btn-outline" onClick={() => setShowModal(true)}>
               <FaPlay /> Watch Demo
             </button>
-          </div>
-        </div>
-        <div className="hero-illustration">
-          <div className="hero-card card-1">
-            <FaBrain className="card-icon" />
-            <span>AI Therapy</span>
-          </div>
-          <div className="hero-card card-2">
-            <FaChartLine className="card-icon" />
-            <span>Mood Tracking</span>
-          </div>
-          <div className="hero-card card-3">
-            <FaHeadset className="card-icon" />
-            <span>24/7 Support</span>
-          </div>
-          <div className="hero-circle"></div>
-        </div>
+          </motion.div>
+        </motion.div>
+        <motion.div {...heroVisualProps}>
+          <HeroOrbit />
+        </motion.div>
       </section>
 
       {/* Stats Section */}
@@ -89,7 +137,9 @@ const Home = () => {
         <div className="stats-container">
           {stats.map((stat, index) => (
             <div key={index} className="stat-item">
-              <h3>{stat.number}</h3>
+              <h3>
+                <AnimatedStatNumber value={stat.number} />
+              </h3>
               <p>{stat.label}</p>
             </div>
           ))}
