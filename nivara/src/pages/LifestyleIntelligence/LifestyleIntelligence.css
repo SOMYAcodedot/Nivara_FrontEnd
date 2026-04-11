@@ -33,6 +33,52 @@
   font-size: 1.1rem;
 }
 
+.loading-container-aware {
+  max-width: 420px;
+  text-align: center;
+}
+
+.loading-title {
+  font-size: 1.2rem !important;
+  font-weight: 700;
+  color: #1a1a2e !important;
+  margin: 0 !important;
+}
+
+.loading-sub {
+  font-size: 0.95rem !important;
+  color: #666 !important;
+  line-height: 1.5 !important;
+  margin: 8px 0 0 0 !important;
+}
+
+.lifestyle-page-with-overlay {
+  position: relative;
+}
+
+.page-refresh-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  min-height: 280px;
+}
+
+.page-refresh-overlay-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 32px;
+  text-align: center;
+  max-width: 360px;
+}
+
 /* Page Header */
 .lifestyle-intelligence-page .page-header {
   display: flex;
@@ -122,6 +168,45 @@
   font-size: 1.1rem;
 }
 
+.ai-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.llm-personalized-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 6px 14px;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.llm-personalized-badge svg {
+  font-size: 1rem;
+}
+
+.recs-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #b45309;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.recs-warning svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
 .ai-generated-by {
   font-size: 1.1rem;
   font-weight: 700;
@@ -206,6 +291,11 @@
   justify-content: center;
   font-size: 1.4rem;
   flex-shrink: 0;
+}
+
+.context-card-icon .nivara-butterfly-mark {
+  width: 1.7em;
+  height: 1.7em;
 }
 
 .context-card-body h3 {
@@ -309,6 +399,68 @@
 
 .rec-list li:last-child {
   margin-bottom: 0;
+}
+
+.rec-list-structured {
+  list-style: none;
+  padding-left: 0;
+}
+
+.rec-structured-item {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.rec-structured-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.rec-structured-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px 14px;
+  margin-bottom: 6px;
+}
+
+.rec-item-title {
+  font-weight: 700;
+  color: #1a1a2e;
+  font-size: 1rem;
+}
+
+.rec-item-duration {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #26a69a;
+  background: rgba(38, 166, 154, 0.12);
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.rec-item-description {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.55;
+}
+
+.diet-adjustment-row .diet-category {
+  display: block;
+  font-weight: 700;
+  color: #1a1a2e;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.diet-adjustment-row .diet-tip {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #555;
+  line-height: 1.55;
 }
 
 .no-context-note {

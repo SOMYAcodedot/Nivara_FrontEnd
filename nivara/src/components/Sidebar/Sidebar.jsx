@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { FaHome, FaTachometerAlt, FaInfoCircle, FaEnvelope, FaSignOutAlt, FaTimes, FaBrain } from "react-icons/fa";
+import { FaHome, FaTachometerAlt, FaInfoCircle, FaEnvelope, FaSignOutAlt, FaTimes } from "react-icons/fa";
+import NivaraButterflyMark from "../NivaraButterflyMark/NivaraButterflyMark";
 import "./Sidebar.css";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -39,7 +40,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-logo">
-            <FaBrain className="logo-icon" />
+            <NivaraButterflyMark className="logo-icon" decorative />
             <span>Nivara</span>
           </div>
           <button className="sidebar-close" onClick={toggleSidebar}>

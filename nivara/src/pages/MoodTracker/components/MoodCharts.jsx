@@ -35,13 +35,16 @@ const EMOTION_COLORS = {
 
 const PIE_COLORS = ["#667eea", "#764ba2", "#4CAF50", "#FF9800", "#EF5350", "#42A5F5", "#9E9E9E", "#AB47BC"];
 
-const MoodCharts = ({ refreshTrigger }) => {
+const MoodCharts = ({ refreshTrigger, periodDays = 30, onPeriodDaysChange }) => {
   const [trendData, setTrendData] = useState([]);
   const [emotionData, setEmotionData] = useState([]);
   const [stressData, setStressData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [days, setDays] = useState(30);
+  const [internalDays, setInternalDays] = useState(30);
+  const isControlled = typeof onPeriodDaysChange === "function";
+  const days = isControlled ? periodDays ?? 30 : internalDays;
+  const setDays = isControlled ? onPeriodDaysChange : setInternalDays;
 
   const fetchChartData = async () => {
     setLoading(true);

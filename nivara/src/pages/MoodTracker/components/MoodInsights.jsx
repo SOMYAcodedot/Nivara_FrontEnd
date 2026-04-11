@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
+import { ensureMinElapsed, MIN_AWARE_LOADING_MS } from "../../../utils/minLoadingDelay";
 import {
-  FaBrain,
+  FaBookOpen,
   FaHeartbeat,
   FaLightbulb,
   FaLeaf,
@@ -10,38 +11,83 @@ import {
   FaSmile,
   FaMoon,
 } from "react-icons/fa";
+import NivaraButterflyMark from "../../../components/NivaraButterflyMark/NivaraButterflyMark";
 import "./MoodInsights.css";
 
-const MoodInsights = ({ refreshTrigger }) => {
+const API_BASE_URL = "http://localhost:8000/api";
+
+const REC_ICONS = [
+  { icon: <FaLeaf />, color: "#4CAF50" },
+  { icon: <FaSmile />, color: "#FFC107" },
+  { icon: <FaMoon />, color: "#764ba2" },
+  { icon: <FaLightbulb />, color: "#FF9800" },
+];
+
+const MoodInsights = ({ refreshTrigger, periodDays = 30 }) => {
   const [summary, setSummary] = useState(null);
+  const [aiPayload, setAiPayload] = useState(null);
+  const [aiFetchFailed, setAiFetchFailed] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  const fetchSummary = async () => {
-    setLoading(true);
-    setError("");
-
-    try {
-      const token = localStorage.getItem("access_token");
-      const response = await axios.get(
-        "http://localhost:8000/api/mood/summary/?days=30",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-      setSummary(response.data);
-    } catch (err) {
-      console.error("Error fetching summary:", err);
-      setError("Failed to load insights");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const mountedRef = useRef(true);
 
   useEffect(() => {
-    fetchSummary();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [refreshTrigger]);
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
+  const fetchData = useCallback(async () => {
+    const started = Date.now();
+    setLoading(true);
+    setError("");
+    setAiFetchFailed(false);
+
+    const token = localStorage.getItem("access_token");
+    const headers = { Authorization: `Bearer ${token}` };
+    const days = periodDays;
+
+    try {
+      const [summaryRes, aiRes] = await Promise.allSettled([
+        axios.get(`${API_BASE_URL}/mood/summary/?days=${days}`, { headers }),
+        axios.get(`${API_BASE_URL}/mood/insights-ai/?days=${days}`, { headers }),
+      ]);
+
+      if (summaryRes.status !== "fulfilled") {
+        console.error("Error fetching mood summary:", summaryRes.reason);
+        setError("Failed to load insights");
+        setSummary(null);
+        setAiPayload(null);
+        return;
+      }
+
+      setSummary(summaryRes.value.data);
+
+      if (aiRes.status === "fulfilled") {
+        setAiPayload(aiRes.value.data);
+        setAiFetchFailed(false);
+      } else {
+        console.error("Error fetching mood insights-ai:", aiRes.reason);
+        setAiPayload(null);
+        setAiFetchFailed(true);
+      }
+    } catch (err) {
+      console.error("Error fetching mood insights:", err);
+      setError("Failed to load insights");
+      setSummary(null);
+      setAiPayload(null);
+    } finally {
+      await ensureMinElapsed(started, MIN_AWARE_LOADING_MS);
+      if (mountedRef.current) {
+        setLoading(false);
+      }
+    }
+  }, [periodDays]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData, refreshTrigger]);
 
   const getStressLevelColor = (level) => {
     if (!level) return "#9E9E9E";
@@ -67,14 +113,13 @@ const MoodInsights = ({ refreshTrigger }) => {
     return "#EF5350";
   };
 
-  const getEmotionalInsight = (summary) => {
-    if (!summary) return "";
+  const getEmotionalInsight = (s) => {
+    if (!s) return "";
 
-    const { dominant_emotion, stress_level, mood_stability_index } = summary;
+    const { dominant_emotion, stress_level, mood_stability_index } = s;
 
     let insight = "";
 
-    // Emotional stability insight
     if (mood_stability_index >= 70) {
       insight += "Your emotional state has been quite stable recently, showing good resilience. ";
     } else if (mood_stability_index >= 50) {
@@ -83,7 +128,6 @@ const MoodInsights = ({ refreshTrigger }) => {
       insight += "Your emotions have been quite variable lately. Consider focusing on grounding activities. ";
     }
 
-    // Dominant emotion interpretation
     if (dominant_emotion) {
       const emotionName = dominant_emotion.charAt(0).toUpperCase() + dominant_emotion.slice(1);
       if (["happy", "calm", "content", "hopeful"].includes(dominant_emotion.toLowerCase())) {
@@ -95,7 +139,6 @@ const MoodInsights = ({ refreshTrigger }) => {
       }
     }
 
-    // Stress interpretation
     if (stress_level === "High" || stress_level === "Very High") {
       insight += "Your stress markers suggest it may be time to incorporate more relaxation techniques. ";
     } else if (stress_level === "Moderate") {
@@ -107,13 +150,12 @@ const MoodInsights = ({ refreshTrigger }) => {
     return insight;
   };
 
-  const getCareRecommendations = (summary) => {
-    if (!summary) return [];
+  const getCareRecommendations = (s) => {
+    if (!s) return [];
 
     const recommendations = [];
-    const { stress_level, average_mood, dominant_emotion, mood_stability_index } = summary;
+    const { stress_level, average_mood, dominant_emotion, mood_stability_index } = s;
 
-    // Based on stress level
     if (stress_level === "High" || stress_level === "Very High") {
       recommendations.push({
         icon: <FaLeaf />,
@@ -127,7 +169,6 @@ const MoodInsights = ({ refreshTrigger }) => {
       });
     }
 
-    // Based on mood
     if (average_mood < 5) {
       recommendations.push({
         icon: <FaSmile />,
@@ -141,16 +182,14 @@ const MoodInsights = ({ refreshTrigger }) => {
       });
     }
 
-    // Based on stability
     if (mood_stability_index < 50) {
       recommendations.push({
-        icon: <FaBrain />,
+        icon: <FaBookOpen />,
         text: "Journaling can help process emotions and identify patterns",
         color: "#667eea",
       });
     }
 
-    // Based on dominant emotion
     if (dominant_emotion?.toLowerCase() === "anxious") {
       recommendations.push({
         icon: <FaLightbulb />,
@@ -159,7 +198,6 @@ const MoodInsights = ({ refreshTrigger }) => {
       });
     }
 
-    // Default recommendations if none specific
     if (recommendations.length === 0) {
       recommendations.push({
         icon: <FaLeaf />,
@@ -176,11 +214,62 @@ const MoodInsights = ({ refreshTrigger }) => {
     return recommendations.slice(0, 4);
   };
 
+  const useLlmCopy =
+    aiPayload &&
+    aiPayload.llm_generated === true &&
+    typeof aiPayload.emotional_analysis === "string" &&
+    aiPayload.emotional_analysis.trim().length > 0;
+
+  const llmRecommendations =
+    useLlmCopy &&
+    Array.isArray(aiPayload.care_recommendations) &&
+    aiPayload.care_recommendations.length > 0
+      ? aiPayload.care_recommendations
+          .filter((t) => typeof t === "string" && t.trim())
+          .map((text, index) => {
+            const slot = REC_ICONS[index % REC_ICONS.length];
+            return { icon: slot.icon, text, color: slot.color };
+          })
+      : null;
+
+  const careRecsForUi =
+    llmRecommendations && llmRecommendations.length > 0
+      ? llmRecommendations
+      : getCareRecommendations(summary);
+
+  const emotionalText = useLlmCopy
+    ? aiPayload.emotional_analysis.trim()
+    : getEmotionalInsight(summary);
+
+  const footnoteEntries =
+    useLlmCopy && aiPayload.footnote && typeof aiPayload.footnote.total_entries === "number"
+      ? aiPayload.footnote.total_entries
+      : summary?.total_entries;
+
+  const footnotePeriodDays =
+    useLlmCopy && aiPayload.footnote && typeof aiPayload.footnote.period_days === "number"
+      ? aiPayload.footnote.period_days
+      : summary?.period_days ?? periodDays;
+
+  const llmNotice =
+    aiPayload &&
+    aiPayload.llm_generated === false &&
+    (aiPayload.error ||
+      aiPayload.detail ||
+      aiPayload.message ||
+      "Personalized text could not be generated. Showing standard insights instead.");
+
   if (loading) {
     return (
-      <div className="insights-loading">
-        <div className="loading-spinner-large"></div>
-        <p>Analyzing your emotional patterns...</p>
+      <div className="mood-insights-loader-host" aria-busy="true" aria-live="polite">
+        <div className="mood-insights-loader-inner">
+          <div className="mood-insights-aware-spinner" />
+          <p className="mood-insights-aware-title">Preparing your mood insights</p>
+          <p className="mood-insights-aware-sub">
+            Summarizing your patterns and personalized guidance — this may take a moment on first
+            load, then stays quick while our cache is warm.
+          </p>
+        </div>
       </div>
     );
   }
@@ -190,7 +279,7 @@ const MoodInsights = ({ refreshTrigger }) => {
       <div className="insights-error">
         <FaExclamationTriangle />
         <p>{error}</p>
-        <button onClick={fetchSummary} className="retry-btn">
+        <button onClick={fetchData} className="retry-btn">
           <FaSyncAlt /> Retry
         </button>
       </div>
@@ -200,7 +289,7 @@ const MoodInsights = ({ refreshTrigger }) => {
   if (!summary || summary.total_entries === 0) {
     return (
       <div className="insights-empty">
-        <FaBrain className="empty-icon" />
+        <NivaraButterflyMark className="empty-icon" variant="mono" decorative />
         <h4>No Data Yet</h4>
         <p>Start logging your moods to see personalized insights and recommendations!</p>
       </div>
@@ -210,8 +299,19 @@ const MoodInsights = ({ refreshTrigger }) => {
   return (
     <div className="mood-insights">
       <h3 className="insights-title">
-        <FaBrain className="title-icon" /> Mood Insights
+        <NivaraButterflyMark className="title-icon" decorative /> Mood Insights
       </h3>
+
+      {(aiFetchFailed || llmNotice) && (
+        <div className="insights-ai-notice" role="status">
+          <FaExclamationTriangle className="insights-ai-notice-icon" />
+          <p>
+            {aiFetchFailed
+              ? "Could not load AI insights. Showing standard analysis below."
+              : String(llmNotice)}
+          </p>
+        </div>
+      )}
 
       {/* Summary Stats */}
       <div className="insights-stats">
@@ -253,7 +353,6 @@ const MoodInsights = ({ refreshTrigger }) => {
         </div>
       </div>
 
-      {/* Cycle Phase (if tracked) */}
       {summary.cycle_phase && (
         <div className="cycle-info">
           <FaMoon className="cycle-icon" />
@@ -261,22 +360,20 @@ const MoodInsights = ({ refreshTrigger }) => {
         </div>
       )}
 
-      {/* AI Insight */}
       <div className="insight-card">
         <div className="insight-header">
           <FaLightbulb className="insight-icon" />
           <h4>Emotional Analysis</h4>
         </div>
-        <p className="insight-text">{getEmotionalInsight(summary)}</p>
+        <p className="insight-text">{emotionalText}</p>
       </div>
 
-      {/* Care Recommendations */}
       <div className="recommendations-section">
         <h4 className="recommendations-title">
           <FaHeartbeat className="rec-icon" /> Care Recommendations
         </h4>
         <div className="recommendations-list">
-          {getCareRecommendations(summary).map((rec, index) => (
+          {careRecsForUi.map((rec, index) => (
             <div key={index} className="recommendation-item" style={{ "--rec-color": rec.color }}>
               <div className="rec-icon-wrapper" style={{ background: rec.color }}>
                 {rec.icon}
@@ -287,11 +384,10 @@ const MoodInsights = ({ refreshTrigger }) => {
         </div>
       </div>
 
-      {/* Data Summary */}
       <div className="data-summary">
         <p>
-          Based on <strong>{summary.total_entries}</strong> mood entries over the last{" "}
-          <strong>{summary.period_days}</strong> days
+          Based on <strong>{footnoteEntries}</strong> mood entries over the last{" "}
+          <strong>{footnotePeriodDays}</strong> days
         </p>
       </div>
     </div>

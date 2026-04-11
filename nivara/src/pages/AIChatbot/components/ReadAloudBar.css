@@ -1,0 +1,165 @@
+.read-aloud-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Animated pill toggle */
+.read-aloud-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px 8px 10px;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  background: rgba(0, 0, 0, 0.12);
+  color: white;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  transition: background 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.3s ease, box-shadow 0.35s ease, transform 0.2s ease;
+}
+
+.read-aloud-toggle:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: translateY(-1px);
+}
+
+.read-aloud-toggle.on {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.read-aloud-toggle-track {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+}
+
+.read-aloud-toggle.on .read-aloud-toggle-track {
+  background: linear-gradient(90deg, #a78bfa 0%, #f0abfc 100%);
+  box-shadow: 0 0 16px rgba(167, 139, 250, 0.6);
+}
+
+.read-aloud-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.read-aloud-toggle.on .read-aloud-toggle-thumb {
+  transform: translateX(20px);
+}
+
+.read-aloud-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.read-aloud-icon {
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+/* Stop reading — pulsing CTA */
+.read-aloud-stop {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 50%, #667eea 100%);
+  background-size: 200% 200%;
+  animation: read-aloud-stop-gradient 3s ease infinite;
+  color: white;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(102, 126, 234, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.read-aloud-stop:hover {
+  transform: scale(1.04);
+  box-shadow: 0 12px 36px rgba(196, 113, 237, 0.5);
+}
+
+.read-aloud-stop:active {
+  transform: scale(0.98);
+}
+
+@keyframes read-aloud-stop-gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.read-aloud-waves {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 18px;
+}
+
+.read-aloud-waves span {
+  width: 3px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.95);
+  animation: read-aloud-wave 0.9s ease-in-out infinite;
+}
+
+.read-aloud-waves span:nth-child(1) {
+  height: 8px;
+  animation-delay: 0s;
+}
+.read-aloud-waves span:nth-child(2) {
+  height: 14px;
+  animation-delay: 0.12s;
+}
+.read-aloud-waves span:nth-child(3) {
+  height: 10px;
+  animation-delay: 0.24s;
+}
+.read-aloud-waves span:nth-child(4) {
+  height: 16px;
+  animation-delay: 0.36s;
+}
+
+@keyframes read-aloud-wave {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.read-aloud-stop-icon {
+  font-size: 0.75rem;
+}

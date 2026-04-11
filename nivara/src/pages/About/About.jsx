@@ -1,5 +1,6 @@
 import React from "react";
-import { FaBrain, FaRobot, FaSmile, FaHandsHelping, FaShieldAlt, FaUsers, FaLightbulb, FaHeart } from "react-icons/fa";
+import { FaClipboardList, FaRobot, FaSmile, FaHandsHelping, FaShieldAlt, FaUsers, FaLightbulb, FaHeart } from "react-icons/fa";
+import AnimatedStatNumber from "../../components/AnimatedStatNumber";
 import "./About.css";
 
 const About = () => {
@@ -10,7 +11,7 @@ const About = () => {
       description: "Chat with our AI therapist for instant support, guided exercises, and mental health insights."
     },
     {
-      icon: <FaBrain />,
+      icon: <FaClipboardList />,
       title: "Cognitive Behavioral Therapy",
       description: "Use CBT techniques to reframe negative thoughts and build positive mental habits."
     },
@@ -85,15 +86,15 @@ const About = () => {
           </div>
           <div className="mission-stats">
             <div className="stat">
-              <span className="stat-number">10K+</span>
-              <span className="stat-label">Users Helped</span>
-            </div>
-            <div className="stat">
-              <span className="stat-number">95%</span>
+              <span className="stat-number">
+                <AnimatedStatNumber value="95%" />
+              </span>
               <span className="stat-label">Satisfaction</span>
             </div>
             <div className="stat">
-              <span className="stat-number">50+</span>
+              <span className="stat-number">
+                <AnimatedStatNumber value="10+" />
+              </span>
               <span className="stat-label">Expert Therapists</span>
             </div>
           </div>

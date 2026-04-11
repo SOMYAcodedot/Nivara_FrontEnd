@@ -1,0 +1,716 @@
+/* Off-screen PDF-only layout (cloned to visible for capture in exportHealthReportPdf) */
+.health-report-pdf-root {
+  position: fixed;
+  left: -12000px;
+  top: 0;
+  width: 700px;
+  max-width: 700px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #000000;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 10.5px;
+  line-height: 1.45;
+  padding: 34px 40px 32px;
+  overflow: visible;
+}
+
+.health-report-pdf-root * {
+  box-sizing: border-box;
+}
+
+.health-report-pdf-navy {
+  color: #000080;
+}
+
+.health-report-pdf-double-rule {
+  border: none;
+  border-top: 3px double #000080;
+  margin: 10px 0 12px;
+  height: 0;
+}
+
+.health-report-pdf-header-top {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 14px;
+}
+
+.health-report-pdf-header-cell {
+  display: table-cell;
+  vertical-align: middle;
+  width: 33.33%;
+}
+
+.health-report-pdf-brand {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: #000080;
+  line-height: 1.2;
+}
+
+.health-report-pdf-brand-sub {
+  font-size: 8px;
+  font-weight: 600;
+  color: #000080;
+  letter-spacing: 0.12em;
+  margin-top: 2px;
+}
+
+.health-report-pdf-header-center {
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  color: #000080;
+  letter-spacing: 0.06em;
+  line-height: 1.25;
+}
+
+.health-report-pdf-header-right {
+  text-align: right;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  color: #000080;
+  line-height: 1.2;
+}
+
+.health-report-pdf-header-right-sub {
+  font-size: 8px;
+  font-weight: 600;
+  margin-top: 2px;
+  color: #000080;
+}
+
+.health-report-pdf-meta {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  margin: 12px 0 8px;
+  font-size: 10px;
+}
+
+.health-report-pdf-meta-col {
+  display: table-cell;
+  vertical-align: top;
+  width: 50%;
+  padding-right: 16px;
+}
+
+.health-report-pdf-meta-col:last-child {
+  padding-right: 0;
+  padding-left: 16px;
+}
+
+.health-report-pdf-meta-row {
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.health-report-pdf-meta-label {
+  color: #333333;
+}
+
+.health-report-pdf-meta-value {
+  font-weight: 700;
+}
+
+.health-report-pdf-meta-value-navy {
+  font-weight: 700;
+  color: #000080;
+  text-transform: uppercase;
+}
+
+.health-report-pdf-title {
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000080;
+  letter-spacing: 0.04em;
+  margin: 8px 0 6px;
+  text-transform: uppercase;
+}
+
+.health-report-pdf-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: underline;
+  margin: 16px 0 8px;
+  color: #000000;
+}
+
+.health-report-pdf-section-title:first-of-type {
+  margin-top: 10px;
+}
+
+/* Narrative summary (LLM): match recommendation body at 12px */
+.health-report-pdf-narrative .health-report-pdf-section-title {
+  font-size: 12px;
+}
+
+.health-report-pdf-narrative .health-report-pdf-para {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.health-report-pdf-narrative .health-report-pdf-ul,
+.health-report-pdf-narrative .health-report-pdf-ul li {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.health-report-pdf-narrative .health-report-pdf-small {
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+}
+
+.health-report-pdf-para {
+  margin: 0 0 10px;
+  text-align: justify;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.health-report-pdf-ul {
+  margin: 0 0 12px;
+  padding-left: 18px;
+}
+
+.health-report-pdf-ul li {
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.health-report-pdf-note {
+  font-size: 10px;
+  color: #444444;
+  font-style: italic;
+  margin: 10px 0 0;
+  padding-left: 8px;
+  border-left: 2px solid #cccccc;
+}
+
+.health-report-pdf-divider-thin {
+  border: none;
+  border-top: 1px solid #333333;
+  margin: 14px 0 16px;
+  max-width: 65%;
+}
+
+.health-report-pdf-findings-lead {
+  margin: -2px 0 12px;
+  font-size: 10px;
+  line-height: 1.45;
+  color: #666666;
+  font-style: italic;
+}
+
+.health-report-pdf-finding-wrap {
+  margin: 0 0 14px;
+}
+
+.health-report-pdf-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 10px;
+  line-height: 1.4;
+  border: 1px solid #000080;
+}
+
+.health-report-pdf-table-title {
+  background: #000080;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 8px 10px;
+  border: 1px solid #000080;
+}
+
+.health-report-pdf-table-label {
+  width: 38%;
+  vertical-align: top;
+  text-align: left;
+  font-weight: 700;
+  padding: 7px 10px;
+  border: 1px solid #b0b8c4;
+  background: #f4f5f8;
+  word-break: break-word;
+}
+
+.health-report-pdf-table-value {
+  vertical-align: top;
+  text-align: left;
+  padding: 7px 10px;
+  border: 1px solid #b0b8c4;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.health-report-pdf-muted {
+  color: #666666;
+  font-style: italic;
+}
+
+.health-report-pdf-risk {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-left: 3px solid #000080;
+  background: #f8f8fa;
+}
+
+.health-report-pdf-risk-sev {
+  font-weight: 700;
+  font-size: 9px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.health-report-pdf-suggestion {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.health-report-pdf-suggestion-tag {
+  display: inline-block;
+  font-size: 8px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #000080;
+  padding: 2px 8px;
+  margin-bottom: 4px;
+}
+
+.health-report-pdf-footer {
+  margin-top: 16px;
+  font-size: 8.5px;
+  color: #555555;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+}
+
+/* Two-page-oriented layout (content sized to reduce sliced PDF pages) */
+.health-report-pdf-page1 {
+  margin-bottom: 8px;
+}
+
+.health-report-pdf-page2 {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 2px solid #000080;
+}
+
+/* Legacy: lifestyle used to share segment A with the report (caused sparse mid-page slices). */
+.health-report-pdf-page2--split-first {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 2px solid #000080;
+}
+
+/* Second PDF capture: full-width root so Sleep | Emotional never splits mid-row */
+.health-report-pdf-export-segment {
+  display: block;
+}
+
+.health-report-pdf-continuation-band {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  line-height: 1.35;
+  color: #ffffff;
+  background: #000080;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}
+
+.health-report-pdf-continuation-brand {
+  display: table-cell;
+  width: 18%;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+}
+
+.health-report-pdf-continuation-title {
+  display: table-cell;
+  width: 44%;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.health-report-pdf-continuation-meta {
+  display: table-cell;
+  width: 38%;
+  font-size: 8px;
+  font-weight: 600;
+  text-align: right;
+  vertical-align: middle;
+  opacity: 0.95;
+}
+
+.health-report-pdf-lifestyle--segment-b {
+  margin-top: 0;
+}
+
+/* PDF segment 2: lifestyle-only root (starts a fresh html2canvas → full page 2, not a tail slice). */
+.health-report-pdf-root--lifestyle-second {
+  border-top: 2px solid #000080;
+  padding-top: 12px;
+  box-sizing: border-box;
+}
+
+.health-report-pdf-lifestyle-ref-line {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 8px;
+  color: #555;
+  margin: -4px 0 10px 0;
+  line-height: 1.35;
+}
+
+.health-report-pdf-lifestyle-ref-id {
+  font-weight: 700;
+  color: #000080;
+}
+
+.health-report-pdf-lifestyle--compact .health-report-pdf-lifestyle-intro {
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.health-report-pdf-lifestyle--compact .health-report-pdf-lifestyle-source {
+  margin: -4px 0 8px;
+}
+
+.health-report-pdf-lifestyle--compact .health-report-pdf-rec-section {
+  margin-bottom: 11px;
+}
+
+.health-report-pdf-lifestyle--compact .health-report-pdf-rec-h3 {
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+  font-size: 12px;
+}
+
+.health-report-pdf-lifestyle--compact .health-report-pdf-rec-lead {
+  margin-bottom: 6px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.health-report-pdf-lifestyle--compact .health-report-pdf-rec-ul {
+  font-size: 12px;
+  line-height: 1.45;
+  padding-left: 18px;
+}
+
+.health-report-pdf-lifestyle--compact .health-report-pdf-rec-ul li {
+  margin-bottom: 3px;
+}
+
+.health-report-pdf-ul-tight li {
+  margin-bottom: 4px;
+}
+
+.health-report-pdf-small {
+  font-size: 9.5px !important;
+  line-height: 1.4 !important;
+}
+
+/* Page 2: lifestyle (2 columns, compact) */
+.health-report-pdf-lifestyle-main-title {
+  margin-top: 0 !important;
+  font-size: 12px;
+}
+
+.health-report-pdf-lifestyle-source {
+  margin: -4px 0 12px;
+}
+
+.health-report-pdf-lifestyle-ai {
+  display: inline-block;
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+  background: #000080;
+  padding: 2px 8px;
+  margin-right: 8px;
+}
+
+.health-report-pdf-lifestyle-rules {
+  display: inline-block;
+  font-size: 8px;
+  font-weight: 700;
+  color: #333;
+  background: #e8e8e8;
+  padding: 2px 8px;
+}
+
+/* Outer 2×2 table: paired columns share row height (aligned tops, no grid overlap) */
+.health-report-pdf-ls-outer-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 12px 14px;
+  table-layout: fixed;
+  margin: 0;
+}
+
+.health-report-pdf-ls-outer-cell {
+  width: 50%;
+  vertical-align: top;
+  padding: 0;
+  overflow: visible;
+}
+
+.health-report-pdf-ls-panel {
+  border: 1px solid #8a93a8;
+  background: #fafbfc;
+  font-size: 9.5px;
+  line-height: 1.4;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.health-report-pdf-ls-panel-body {
+  padding: 6px 8px 10px;
+  overflow: visible;
+}
+
+.health-report-pdf-ls-head {
+  font-weight: 700;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #000080;
+  margin: 0;
+  padding: 8px 10px 6px;
+  border-bottom: 1px solid #c5cad6;
+  background: linear-gradient(180deg, #eef0f5 0%, #fafbfc 100%);
+}
+
+.health-report-pdf-ls-lead {
+  margin: 0 0 8px;
+  text-align: left;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.health-report-pdf-ls-label {
+  font-weight: 700;
+}
+
+.health-report-pdf-ls-empty {
+  margin: 8px;
+  color: #777;
+  font-style: italic;
+  font-size: 9px;
+}
+
+/* Inner data tables (yoga / diet / sleep / emotional) */
+.health-report-pdf-ls-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 9px;
+  line-height: 1.35;
+  margin: 0 0 4px;
+}
+
+.health-report-pdf-ls-data-table thead th {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #1a1a2e;
+  background: #e8eaf0;
+  border: 1px solid #b0b8c4;
+  padding: 5px 6px;
+  text-align: left;
+  vertical-align: bottom;
+  word-break: break-word;
+}
+
+.health-report-pdf-ls-data-table tbody td {
+  border: 1px solid #c5cad6;
+  padding: 5px 6px;
+  vertical-align: top;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.health-report-pdf-ls-col-activity {
+  width: 34%;
+}
+
+.health-report-pdf-ls-col-duration {
+  width: 12%;
+}
+
+.health-report-pdf-ls-col-notes {
+  width: 54%;
+}
+
+.health-report-pdf-ls-col-category {
+  width: 28%;
+}
+
+.health-report-pdf-ls-col-tip {
+  width: 72%;
+}
+
+.health-report-pdf-ls-col-idx {
+  width: 8%;
+  text-align: center;
+}
+
+.health-report-pdf-ls-col-guidance {
+  width: 92%;
+}
+
+.health-report-pdf-ls-td-num {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.health-report-pdf-ls-td-text {
+  text-align: left;
+}
+
+/* Report sections: 2×2 grid after orderReportSectionsForPdfGrid (mood|cycle, stress|lifestyle) */
+.health-report-pdf-report-sections-block {
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.health-report-pdf-report-sections-block .health-report-pdf-section-title {
+  margin-top: 0;
+}
+
+/* Two section tables per row → less vertical space (target ~2 PDF pages total) */
+.health-report-pdf-sections-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 12px;
+  align-items: start;
+}
+
+.health-report-pdf-sections-grid--single {
+  grid-template-columns: 1fr;
+}
+
+.health-report-pdf-sections-grid-cell {
+  min-width: 0;
+}
+
+.health-report-pdf-sections-grid .health-report-pdf-finding-wrap {
+  margin: 0;
+}
+
+.health-report-pdf-sections-grid .health-report-pdf-table {
+  font-size: 9px;
+  line-height: 1.32;
+}
+
+.health-report-pdf-sections-grid .health-report-pdf-table-title {
+  font-size: 9px;
+  padding: 6px 8px;
+}
+
+.health-report-pdf-sections-grid .health-report-pdf-table-label,
+.health-report-pdf-sections-grid .health-report-pdf-table-value {
+  padding: 5px 6px;
+  font-size: 9px;
+}
+
+/* Lifestyle recommendations: full-width prose + bullets (no inner data grids) */
+.health-report-pdf-lifestyle--prose {
+  margin-top: 0;
+}
+
+.health-report-pdf-lifestyle-intro {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.45;
+  margin: 0 0 14px 0;
+}
+
+.health-report-pdf-rec-section {
+  margin: 0 0 18px 0;
+  padding: 0;
+}
+
+.health-report-pdf-rec-h3 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #000080;
+  margin: 0 0 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #c5cad6;
+}
+
+.health-report-pdf-rec-lead {
+  margin: 0 0 10px 0;
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: justify;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.health-report-pdf-rec-ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.health-report-pdf-rec-ul li {
+  margin-bottom: 6px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.health-report-pdf-rec-li {
+  list-style-position: outside;
+}
+
+.health-report-pdf-rec-meta {
+  font-weight: 600;
+  color: #2e5aac;
+}
+
+.health-report-pdf-rec-desc {
+  font-weight: 400;
+  color: #333;
+}
+
+.health-report-pdf-rec-empty {
+  margin: 0;
+  font-size: 12px;
+  color: #777;
+  font-style: italic;
+}

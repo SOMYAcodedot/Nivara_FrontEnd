@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
 import {
   FaLeaf,
@@ -9,10 +9,17 @@ import {
   FaSyncAlt,
   FaExclamationTriangle,
   FaFemale,
-  FaBrain,
   FaRobot,
 } from "react-icons/fa";
+import NivaraButterflyMark from "../../components/NivaraButterflyMark/NivaraButterflyMark";
 import "./LifestyleIntelligence.css";
+import { tryRefreshAccessToken, friendlyApiError } from "../../utils/apiAuth";
+import {
+  ensureMinElapsed,
+  MIN_AWARE_LOADING_MS,
+} from "../../utils/minLoadingDelay";
+import { formatSleepTargetHours } from "../../utils/sleepTargetFormat";
+import { hasLifestyleRecommendationContent } from "../../utils/lifestyleRecsHasContent";
 
 const API_BASE_URL = "http://localhost:8000/api";
 
@@ -20,28 +27,65 @@ const LifestyleIntelligence = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [recsWarning, setRecsWarning] = useState("");
   const [days] = useState(30);
+  const mountedRef = useRef(true);
+
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
 
   const fetchRecommendations = useCallback(async () => {
+    const started = Date.now();
     setLoading(true);
     setError("");
+    setRecsWarning("");
+    const url = `${API_BASE_URL}/lifestyle/recommendations/?days=${days}`;
+    const getOnce = (token) =>
+      axios.get(url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     try {
       const token = localStorage.getItem("access_token");
-      const response = await axios.get(
-        `${API_BASE_URL}/lifestyle/recommendations/?days=${days}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      let response;
+      try {
+        response = await getOnce(token);
+      } catch (firstErr) {
+        if (firstErr.response?.status === 401) {
+          const next = await tryRefreshAccessToken();
+          if (next) {
+            response = await getOnce(next);
+          } else {
+            throw firstErr;
+          }
+        } else {
+          throw firstErr;
+        }
+      }
       setData(response.data);
+      const recs = response.data?.recommendations;
+      if (!hasLifestyleRecommendationContent(recs)) {
+        setRecsWarning(
+          "We couldn't load detailed recommendations right now. Try adding mood logs or refreshing in a few minutes."
+        );
+      }
     } catch (err) {
       console.error("Error fetching lifestyle recommendations:", err);
       setError(
-        err.response?.status === 401
-          ? "Please log in to see your personalized recommendations."
-          : err.response?.data?.detail || "Failed to load recommendations."
+        friendlyApiError(
+          err,
+          "We couldn't load recommendations. Please try again shortly."
+        )
       );
       setData(null);
     } finally {
-      setLoading(false);
+      await ensureMinElapsed(started, MIN_AWARE_LOADING_MS);
+      if (mountedRef.current) {
+        setLoading(false);
+      }
     }
   }, [days]);
 
@@ -68,9 +112,13 @@ const LifestyleIntelligence = () => {
   if (loading && !data) {
     return (
       <div className="lifestyle-intelligence-page">
-        <div className="loading-container">
+        <div className="loading-container loading-container-aware">
           <div className="loading-spinner"></div>
-          <p>Loading your personalized recommendations...</p>
+          <p className="loading-title">Preparing your recommendations</p>
+          <p className="loading-sub">
+            Aligning yoga, diet, sleep, and emotional tips with your mood, cycle,
+            and stress patterns…
+          </p>
         </div>
       </div>
     );
@@ -99,6 +147,7 @@ const LifestyleIntelligence = () => {
     source,
     generated_by,
     message,
+    llm_generated,
     context: contextData = {},
     recommendations: recs = {},
   } = data || {};
@@ -116,7 +165,16 @@ const LifestyleIntelligence = () => {
   } = recs;
 
   return (
-    <div className="lifestyle-intelligence-page">
+    <div className="lifestyle-intelligence-page lifestyle-page-with-overlay">
+      {loading && data && (
+        <div className="page-refresh-overlay" aria-busy="true" aria-live="polite">
+          <div className="page-refresh-overlay-inner">
+            <div className="loading-spinner"></div>
+            <p className="loading-title">Refreshing your plan</p>
+            <p className="loading-sub">Fetching the latest personalized guidance…</p>
+          </div>
+        </div>
+      )}
       {/* Page Header */}
       <div className="page-header">
         <div className="header-content">
@@ -135,19 +193,35 @@ const LifestyleIntelligence = () => {
         </button>
       </div>
 
-      {/* AI Engine badge & message */}
-      {(source === "ai_engine" || generated_by || message) && (
+      {/* AI / LLM badges & message */}
+      {(llm_generated ||
+        source === "ai_engine" ||
+        generated_by ||
+        message ||
+        recsWarning) && (
         <section className="ai-engine-banner">
-          {source === "ai_engine" && (
-            <span className="ai-powered-badge">
-              <FaRobot /> Powered by AI Engine
-            </span>
-          )}
+          <div className="ai-badges-row">
+            {llm_generated && (
+              <span className="llm-personalized-badge" title="Recommendations from your wellness data">
+                <FaRobot /> Personalized with AI
+              </span>
+            )}
+            {source === "ai_engine" && !llm_generated && (
+              <span className="ai-powered-badge">
+                <FaRobot /> Powered by AI Engine
+              </span>
+            )}
+          </div>
           {generated_by && (
             <h3 className="ai-generated-by">{generated_by}</h3>
           )}
           {message && (
             <p className="ai-message">{message}</p>
+          )}
+          {recsWarning && (
+            <p className="recs-warning" role="status">
+              <FaExclamationTriangle /> {recsWarning}
+            </p>
           )}
         </section>
       )}
@@ -194,7 +268,7 @@ const LifestyleIntelligence = () => {
           {stress_level && (
             <div className="context-card">
               <div className="context-card-icon" style={{ background: `${getStressColor(stress_level)}20`, color: getStressColor(stress_level) }}>
-                <FaBrain />
+                <NivaraButterflyMark variant="mono" decorative />
               </div>
               <div className="context-card-body">
                 <h3>Stress</h3>
@@ -221,10 +295,33 @@ const LifestyleIntelligence = () => {
               <p className="rec-summary">{yoga_suggestions.summary}</p>
             )}
             {yoga_suggestions.suggestions?.length > 0 && (
-              <ul className="rec-list">
-                {yoga_suggestions.suggestions.map((item, i) => (
-                  <li key={i}>{typeof item === "string" ? item : item.name || item.title || JSON.stringify(item)}</li>
-                ))}
+              <ul className="rec-list rec-list-structured">
+                {yoga_suggestions.suggestions.map((item, i) => {
+                  if (typeof item === "string") {
+                    return <li key={i}>{item}</li>;
+                  }
+                  const title = item.title || item.name;
+                  const desc = item.description;
+                  const dur =
+                    item.duration_min != null && item.duration_min !== ""
+                      ? `${item.duration_min} min`
+                      : null;
+                  return (
+                    <li key={i} className="rec-structured-item">
+                      <div className="rec-structured-head">
+                        {title ? (
+                          <span className="rec-item-title">{title}</span>
+                        ) : null}
+                        {dur ? (
+                          <span className="rec-item-duration">{dur}</span>
+                        ) : null}
+                      </div>
+                      {desc ? (
+                        <p className="rec-item-description">{desc}</p>
+                      ) : null}
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </section>
@@ -241,10 +338,22 @@ const LifestyleIntelligence = () => {
               <p className="rec-summary">{diet_adjustments.phase_note}</p>
             )}
             {diet_adjustments.adjustments?.length > 0 && (
-              <ul className="rec-list">
-                {diet_adjustments.adjustments.map((item, i) => (
-                  <li key={i}>{typeof item === "string" ? item : item.name || item.title || JSON.stringify(item)}</li>
-                ))}
+              <ul className="rec-list rec-list-structured">
+                {diet_adjustments.adjustments.map((adj, i) => {
+                  if (typeof adj === "string") {
+                    return <li key={i}>{adj}</li>;
+                  }
+                  const category = adj.category;
+                  const tip = adj.tip;
+                  return (
+                    <li key={i} className="rec-structured-item diet-adjustment-row">
+                      {category ? (
+                        <span className="diet-category">{category}</span>
+                      ) : null}
+                      {tip ? <p className="diet-tip">{tip}</p> : null}
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </section>
@@ -257,8 +366,14 @@ const LifestyleIntelligence = () => {
               <FaMoon className="rec-card-icon" />
               <h2>Sleep guidance</h2>
             </div>
-            {sleep_guidance.target_hours && (
-              <p className="rec-target">Target: {sleep_guidance.target_hours} hours</p>
+            {sleep_guidance.target_hours != null && sleep_guidance.target_hours !== "" && (
+              <p className="rec-target">
+                Target:{" "}
+                {typeof sleep_guidance.target_hours === "number"
+                  ? `${sleep_guidance.target_hours} h`
+                  : formatSleepTargetHours(sleep_guidance.target_hours) ||
+                    sleep_guidance.target_hours}
+              </p>
             )}
             {sleep_guidance.summary && (
               <p className="rec-summary">{sleep_guidance.summary}</p>
@@ -266,7 +381,11 @@ const LifestyleIntelligence = () => {
             {sleep_guidance.tips?.length > 0 && (
               <ul className="rec-list">
                 {sleep_guidance.tips.map((tip, i) => (
-                  <li key={i}>{typeof tip === "string" ? tip : tip.name || tip.title || JSON.stringify(tip)}</li>
+                  <li key={i}>
+                    {typeof tip === "string"
+                      ? tip
+                      : tip.text || tip.title || tip.name || String(tip)}
+                  </li>
                 ))}
               </ul>
             )}
@@ -286,7 +405,11 @@ const LifestyleIntelligence = () => {
             {emotional_regulation_tips.tips?.length > 0 && (
               <ul className="rec-list">
                 {emotional_regulation_tips.tips.map((tip, i) => (
-                  <li key={i}>{typeof tip === "string" ? tip : tip.name || tip.title || JSON.stringify(tip)}</li>
+                  <li key={i}>
+                    {typeof tip === "string"
+                      ? tip
+                      : tip.text || tip.title || tip.name || String(tip)}
+                  </li>
                 ))}
               </ul>
             )}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaUser, FaRulerVertical, FaWeight, FaBed, FaBolt, FaBrain, FaBriefcase, FaArrowRight, FaCheck } from "react-icons/fa";
+import { FaUser, FaRulerVertical, FaWeight, FaBed, FaBolt, FaHeart, FaBriefcase, FaArrowRight, FaCheck } from "react-icons/fa";
 import "./ProfileSetup.css";
 
 const API_BASE_URL = "http://localhost:8000/api";
@@ -302,7 +302,7 @@ const ProfileSetup = () => {
 
       <div className="slider-group">
         <label>
-          <FaBrain className="input-icon" /> Average Anxiety Level
+          <FaHeart className="input-icon" /> Average Anxiety Level
           <span className="slider-value">{formData.anxiety_average}</span>
         </label>
         <input

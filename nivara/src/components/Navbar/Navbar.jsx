@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaUser, FaSignOutAlt, FaBrain } from 'react-icons/fa';
+import { FaBars, FaTimes, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import NivaraButterflyMark from '../NivaraButterflyMark/NivaraButterflyMark';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -48,7 +49,7 @@ const Navbar = () => {
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <Link to="/" className="navbar-logo">
-          <FaBrain className="logo-icon" />
+          <NivaraButterflyMark className="logo-icon" decorative />
           <span>Nivara</span>
         </Link>
 

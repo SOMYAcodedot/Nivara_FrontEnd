@@ -9,6 +9,7 @@ import "./MoodTracker.css";
 const MoodTracker = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [moodPeriodDays, setMoodPeriodDays] = useState(30);
 
   const handleMoodLogged = () => {
     // Trigger refresh of all data components
@@ -59,12 +60,16 @@ const MoodTracker = () => {
 
             {/* Charts Section */}
             <div className="charts-section">
-              <MoodCharts refreshTrigger={refreshTrigger} />
+              <MoodCharts
+                refreshTrigger={refreshTrigger}
+                periodDays={moodPeriodDays}
+                onPeriodDaysChange={setMoodPeriodDays}
+              />
             </div>
 
             {/* Insights Summary */}
             <div className="insights-section">
-              <MoodInsights refreshTrigger={refreshTrigger} />
+              <MoodInsights refreshTrigger={refreshTrigger} periodDays={moodPeriodDays} />
             </div>
           </div>
         )}
@@ -85,9 +90,13 @@ const MoodTracker = () => {
 
         {activeTab === "insights" && (
           <div className="insights-tab">
-            <MoodInsights refreshTrigger={refreshTrigger} />
+            <MoodInsights refreshTrigger={refreshTrigger} periodDays={moodPeriodDays} />
             <div className="charts-detail">
-              <MoodCharts refreshTrigger={refreshTrigger} />
+              <MoodCharts
+                refreshTrigger={refreshTrigger}
+                periodDays={moodPeriodDays}
+                onPeriodDaysChange={setMoodPeriodDays}
+              />
             </div>
           </div>
         )}

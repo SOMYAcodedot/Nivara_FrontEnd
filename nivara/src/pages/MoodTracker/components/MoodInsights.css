@@ -20,7 +20,93 @@
   font-size: 1.5rem;
 }
 
-/* Loading State */
+.insights-title .nivara-butterfly-mark.title-icon {
+  width: 2em;
+  height: 2em;
+}
+
+.insights-ai-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  background: rgba(255, 152, 0, 0.1);
+  border: 1px solid rgba(255, 152, 0, 0.35);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: #5d4037;
+  line-height: 1.45;
+}
+
+.insights-ai-notice p {
+  margin: 0;
+}
+
+.insights-ai-notice-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #e65100;
+}
+
+/* Loading — aligned with Lifestyle / Health Report (min delay via JS) */
+.mood-insights-loader-host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: min(70vh, 720px);
+  box-sizing: border-box;
+  padding: clamp(24px, 5vw, 48px) clamp(16px, 4vw, 32px);
+  margin: 0 auto;
+}
+
+.mood-insights-loader-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  gap: 20px;
+}
+
+.mood-insights-aware-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f0f0f0;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: mood-insights-spin 1s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes mood-insights-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.mood-insights-aware-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.3;
+}
+
+.mood-insights-aware-sub {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Legacy class kept if referenced elsewhere */
 .insights-loading {
   display: flex;
   flex-direction: column;
@@ -111,6 +197,12 @@
 
 .empty-icon {
   font-size: 3rem;
+  color: #ddd;
+}
+
+.insights-empty .nivara-butterfly-mark.empty-icon {
+  width: 3.75rem;
+  height: 3.75rem;
   color: #ddd;
 }
 

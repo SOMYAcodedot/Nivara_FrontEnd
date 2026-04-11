@@ -1,0 +1,11 @@
+.nivara-butterfly-mark {
+  display: block;
+  flex-shrink: 0;
+}
+
+.navbar-logo .nivara-butterfly-mark.logo-icon,
+.sidebar-logo .nivara-butterfly-mark.logo-icon,
+.footer-logo .nivara-butterfly-mark.logo-icon {
+  width: 1.35em;
+  height: 1.35em;
+}

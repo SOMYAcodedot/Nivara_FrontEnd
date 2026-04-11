@@ -133,7 +133,7 @@ const CycleTracker = () => {
 
         {activeTab === "insights" && (
           <div className="insights-tab">
-            <CycleInsights refreshTrigger={refreshTrigger} />
+            <CycleInsights refreshTrigger={refreshTrigger} moodWindowDays={30} />
           </div>
         )}
       </div>

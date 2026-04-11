@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaBrain, FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import NivaraButterflyMark from '../NivaraButterflyMark/NivaraButterflyMark';
 import './Footer.css';
 
 const Footer = () => {
@@ -17,7 +18,7 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section footer-brand">
           <div className="footer-logo">
-            <FaBrain className="logo-icon" />
+            <NivaraButterflyMark className="logo-icon" decorative />
             <span>Nivara</span>
           </div>
           <p>

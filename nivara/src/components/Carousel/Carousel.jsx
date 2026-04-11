@@ -72,21 +72,21 @@ const Carousel = () => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev + 1) % carouselSlides.length);
-    setTimeout(() => setIsAnimating(false), 600);
+    setTimeout(() => setIsAnimating(false), 520);
   }, [isAnimating]);
 
   const prevSlide = useCallback(() => {
     if (isAnimating) return;
     setIsAnimating(true);
     setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
-    setTimeout(() => setIsAnimating(false), 600);
+    setTimeout(() => setIsAnimating(false), 520);
   }, [isAnimating]);
 
   const goToSlide = (index) => {
     if (isAnimating || index === currentSlide) return;
     setIsAnimating(true);
     setCurrentSlide(index);
-    setTimeout(() => setIsAnimating(false), 600);
+    setTimeout(() => setIsAnimating(false), 520);
   };
 
   useEffect(() => {
@@ -185,83 +185,82 @@ const Carousel = () => {
           ></div>
         </div>
 
-        {/* Slides Container */}
-        <div className="carousel-slides-wrapper">
-          {carouselSlides.map((slide, index) => (
-            <div
-              key={slide.id}
-              className={`carousel-slide ${getSlideClass(index)}`}
-              style={{
-                '--accent-color': slide.accentColor,
-                '--gradient-start': slide.gradientStart,
-                '--gradient-end': slide.gradientEnd,
-              }}
-            >
-              {/* Image Section */}
-              <div className="slide-image-wrapper">
-                <img 
-                  src={slide.image} 
-                  alt={slide.title} 
-                  className="slide-image"
-                  loading={index === 0 ? 'eager' : 'lazy'}
-                />
-              </div>
+        <div className="carousel-stage">
+          <div className="carousel-slides-wrapper">
+            {carouselSlides.map((slide, index) => (
+              <div
+                key={slide.id}
+                className={`carousel-slide ${getSlideClass(index)}`}
+                style={{
+                  '--accent-color': slide.accentColor,
+                  '--gradient-start': slide.gradientStart,
+                  '--gradient-end': slide.gradientEnd,
+                }}
+              >
+                <div className="slide-image-wrapper">
+                  <img 
+                    src={slide.image} 
+                    alt={slide.title} 
+                    className="slide-image"
+                    loading={index === 0 ? 'eager' : 'lazy'}
+                  />
+                </div>
 
-              {/* Content Card - Below Image */}
-              <div className="slide-content-card">
-                <div className="card-inner">
-                  <div className="card-header">
-                    <div className="slide-icon-badge">
-                      {slide.icon}
+                <div className="slide-content-card">
+                  <div className="card-inner">
+                    <div className="card-header">
+                      <div className="slide-icon-badge">
+                        {slide.icon}
+                      </div>
+                      <div className="card-title-section">
+                        <span className="slide-subtitle">{slide.subtitle}</span>
+                        <h3 className="slide-title">{slide.title}</h3>
+                      </div>
                     </div>
-                    <div className="card-title-section">
-                      <span className="slide-subtitle">{slide.subtitle}</span>
-                      <h3 className="slide-title">{slide.title}</h3>
-                    </div>
-                  </div>
-                  
-                  <p className="slide-description">{slide.description}</p>
-                  
-                  <div className="card-footer">
-                    <div className="slide-stats">
-                      <div className="stat-number">{slide.stats.number}</div>
-                      <div className="stat-label">{slide.stats.label}</div>
-                    </div>
+                    
+                    <p className="slide-description">{slide.description}</p>
+                    
+                    <div className="card-footer">
+                      <div className="slide-stats">
+                        <div className="stat-number">{slide.stats.number}</div>
+                        <div className="stat-label">{slide.stats.label}</div>
+                      </div>
 
-                    <button className="slide-cta-btn">
-                      Learn More
-                      <FaChevronRight className="cta-arrow" />
-                    </button>
+                      <button type="button" className="slide-cta-btn">
+                        Learn More
+                        <FaChevronRight className="cta-arrow" />
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Decorative Elements */}
-              <div className="slide-decoration">
-                <div className="decoration-ring"></div>
-                <div className="decoration-dots"></div>
+                <div className="slide-decoration">
+                  <div className="decoration-ring"></div>
+                  <div className="decoration-dots"></div>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <button 
+            type="button"
+            className="carousel-nav-btn prev-btn" 
+            onClick={prevSlide} 
+            aria-label="Previous slide"
+            disabled={isAnimating}
+          >
+            <FaChevronLeft />
+          </button>
+          <button 
+            type="button"
+            className="carousel-nav-btn next-btn" 
+            onClick={nextSlide} 
+            aria-label="Next slide"
+            disabled={isAnimating}
+          >
+            <FaChevronRight />
+          </button>
         </div>
-
-        {/* Navigation Arrows */}
-        <button 
-          className="carousel-nav-btn prev-btn" 
-          onClick={prevSlide} 
-          aria-label="Previous slide"
-          disabled={isAnimating}
-        >
-          <FaChevronLeft />
-        </button>
-        <button 
-          className="carousel-nav-btn next-btn" 
-          onClick={nextSlide} 
-          aria-label="Next slide"
-          disabled={isAnimating}
-        >
-          <FaChevronRight />
-        </button>
 
         {/* Slide Counter & Dots */}
         <div className="carousel-navigation">
@@ -275,6 +274,7 @@ const Carousel = () => {
             {carouselSlides.map((slide, index) => (
               <button
                 key={index}
+                type="button"
                 className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
                 onClick={() => goToSlide(index)}
                 aria-label={`Go to slide ${index + 1}: ${slide.title}`}
@@ -290,6 +290,7 @@ const Carousel = () => {
         {carouselSlides.map((slide, index) => (
           <button
             key={slide.id}
+            type="button"
             className={`preview-card ${index === currentSlide ? 'active' : ''}`}
             onClick={() => goToSlide(index)}
             style={{ '--card-accent': slide.accentColor }}
