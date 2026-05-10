@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { FaCalendarPlus, FaPaperPlane, FaNotesMedical } from "react-icons/fa";
+import { FaCalendarPlus, FaPaperPlane, FaNotesMedical, FaTint } from "react-icons/fa";
 import "./PeriodLogging.css";
 
 const API_BASE_URL = "http://localhost:8000/api";
@@ -16,7 +16,7 @@ const PeriodLogging = ({ onPeriodLogged }) => {
     period_end_date: "",
     flow_intensity: "",
     severe_pain: false,
-    notes: ""
+    notes: "",
   });
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const PeriodLogging = ({ onPeriodLogged }) => {
   };
 
   const handleInputChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
     setMessage({ text: "", type: "" });
   };
 
@@ -46,7 +46,6 @@ const PeriodLogging = ({ onPeriodLogged }) => {
       setMessage({ text: "Please enter the period start date", type: "error" });
       return;
     }
-
     if (!formData.flow_intensity) {
       setMessage({ text: "Please select flow intensity", type: "error" });
       return;
@@ -57,15 +56,13 @@ const PeriodLogging = ({ onPeriodLogged }) => {
 
     try {
       const token = localStorage.getItem("access_token");
-      
-      // Prepare data - only include end_date if provided
+
       const submitData = {
         period_start_date: formData.period_start_date,
         flow_intensity: formData.flow_intensity,
         severe_pain: formData.severe_pain,
-        notes: formData.notes
+        notes: formData.notes,
       };
-
       if (formData.period_end_date) {
         submitData.period_end_date = formData.period_end_date;
       }
@@ -73,29 +70,26 @@ const PeriodLogging = ({ onPeriodLogged }) => {
       await axios.post(`${API_BASE_URL}/cycle/period/`, submitData, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       });
 
       setMessage({ text: "Period logged successfully! 🎉", type: "success" });
-      
-      // Reset form
+
       setFormData({
         period_start_date: new Date().toISOString().split("T")[0],
         period_end_date: "",
         flow_intensity: "",
         severe_pain: false,
-        notes: ""
+        notes: "",
       });
 
-      if (onPeriodLogged) {
-        onPeriodLogged();
-      }
+      if (onPeriodLogged) onPeriodLogged();
     } catch (err) {
       console.error("Error logging period:", err);
       setMessage({
         text: err.response?.data?.error || "Failed to log period. Please try again.",
-        type: "error"
+        type: "error",
       });
     } finally {
       setSubmitting(false);
@@ -105,13 +99,16 @@ const PeriodLogging = ({ onPeriodLogged }) => {
   if (loading) {
     return (
       <div className="period-logging-card cycle-card">
-        <div className="loading-container">
-          <div className="loading-spinner"></div>
-          <p>Loading...</p>
+        <div className="pl-loading">
+          <div className="pl-spinner" />
+          <p>Loading…</p>
         </div>
       </div>
     );
   }
+
+  const flowOptions =
+    options?.flow_intensity_options || options?.flow_choices || [];
 
   return (
     <div className="period-logging-card cycle-card">
@@ -123,17 +120,16 @@ const PeriodLogging = ({ onPeriodLogged }) => {
       </div>
 
       {message.text && (
-        <div className={`form-message ${message.type}`}>
-          {message.text}
-        </div>
+        <div className={`pl-message ${message.type}`}>{message.text}</div>
       )}
 
       <form onSubmit={handleSubmit} className="period-form">
-        {/* Period Start Date */}
-        <div className="form-group">
+
+        {/* ── Row 1: Dates ── */}
+        <div className="form-group date-start-group">
           <label>
             <FaCalendarPlus className="label-icon" />
-            Period Start Date *
+            Period Start Date <span className="required">*</span>
           </label>
           <input
             type="date"
@@ -144,11 +140,11 @@ const PeriodLogging = ({ onPeriodLogged }) => {
           />
         </div>
 
-        {/* Period End Date */}
-        <div className="form-group">
+        <div className="form-group date-end-group">
           <label>
             <FaCalendarPlus className="label-icon" />
-            Period End Date (Optional)
+            Period End Date
+            <span className="optional-tag">Optional</span>
           </label>
           <input
             type="date"
@@ -160,64 +156,69 @@ const PeriodLogging = ({ onPeriodLogged }) => {
           <span className="helper-text">Leave blank if your period is still ongoing</span>
         </div>
 
-        {/* Flow Intensity */}
-        <div className="form-group">
-          <label>Flow Intensity *</label>
+        {/* ── Row 2: Flow Intensity (full width) ── */}
+        <div className="form-group flow-group">
+          <label>
+            <FaTint className="label-icon" />
+            Flow Intensity <span className="required">*</span>
+          </label>
           <div className="flow-options">
-            {options?.flow_choices?.map((option) => (
+            {flowOptions.map((option) => (
               <button
                 key={option.value}
                 type="button"
-                className={`flow-option ${formData.flow_intensity === option.value ? "selected" : ""}`}
+                className={`flow-option flow-${option.value}${formData.flow_intensity === option.value ? " selected" : ""}`}
                 onClick={() => handleInputChange("flow_intensity", option.value)}
               >
-                <span className={`flow-indicator ${option.value}`}></span>
-                {option.label}
+                <span className={`flow-indicator flow-ind-${option.value}`} />
+                <span className="flow-label">{option.label}</span>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Severe Pain Toggle */}
-        <div className="form-group">
-          <label>Severe Pain?</label>
-          <div className="toggle-container">
-            <label className="toggle-switch">
+        {/* ── Row 3: Pain toggle + Notes ── */}
+        <div className="form-group pain-group">
+          <label>😣 Severe Pain?</label>
+          <div
+            className={`pain-card${formData.severe_pain ? " pain-active" : ""}`}
+            onClick={() => handleInputChange("severe_pain", !formData.severe_pain)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === " " && handleInputChange("severe_pain", !formData.severe_pain)}
+          >
+            <label className="toggle-switch" onClick={(e) => e.stopPropagation()}>
               <input
                 type="checkbox"
                 checked={formData.severe_pain}
                 onChange={(e) => handleInputChange("severe_pain", e.target.checked)}
               />
-              <span className="toggle-slider"></span>
+              <span className="toggle-slider" />
             </label>
-            <span className="toggle-label">
+            <span className="pain-label">
               {formData.severe_pain ? "Yes, experiencing severe pain" : "No severe pain"}
             </span>
           </div>
         </div>
 
-        {/* Notes */}
-        <div className="form-group">
+        <div className="form-group notes-group">
           <label>
             <FaNotesMedical className="label-icon" />
-            Notes (Optional)
+            Notes
+            <span className="optional-tag">Optional</span>
           </label>
           <textarea
             value={formData.notes}
             onChange={(e) => handleInputChange("notes", e.target.value)}
-            placeholder="Any additional notes about this period..."
-            rows={3}
+            placeholder="Any additional notes about this period…"
+            rows={4}
           />
         </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="submit-btn"
-          disabled={submitting}
-        >
+        {/* ── Submit ── */}
+        <button type="submit" className="submit-btn" disabled={submitting}>
           {submitting ? (
-            "Logging..."
+            "Logging…"
           ) : (
             <>
               <FaPaperPlane /> Log Period

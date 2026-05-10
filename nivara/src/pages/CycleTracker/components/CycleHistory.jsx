@@ -26,9 +26,17 @@ const CycleHistory = ({ refreshTrigger }) => {
         axios.get(`${API_BASE_URL}/cycle/checkin/?days=30`, { headers })
       ]);
 
-      // Ensure data is always an array
-      const periodData = periodsRes.data?.results || periodsRes.data || [];
-      const checkinData = checkinsRes.data?.results || checkinsRes.data || [];
+      // Unwrap whichever envelope shape the API uses
+      const pd = periodsRes.data;
+      const periodData =
+        pd?.period_logs ?? pd?.periods ?? pd?.results ??
+        (Array.isArray(pd) ? pd : []);
+
+      const cd = checkinsRes.data;
+      const checkinData =
+        cd?.checkins ?? cd?.results ??
+        (Array.isArray(cd) ? cd : []);
+
       setPeriodLogs(Array.isArray(periodData) ? periodData : []);
       setCheckinHistory(Array.isArray(checkinData) ? checkinData : []);
     } catch (err) {

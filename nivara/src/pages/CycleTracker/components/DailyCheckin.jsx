@@ -157,14 +157,14 @@ const DailyCheckin = ({ onCheckinComplete }) => {
 
       <form onSubmit={handleSubmit} className="checkin-form">
         {/* Mood Selection */}
-        <div className="form-group">
+        <div className="form-group mood-group">
           <label>
             <FaSmile className="label-icon" />
             How are you feeling today?
           </label>
           <p className="field-hint">Select all that apply</p>
           <div className="mood-select-grid">
-            {options?.mood_choices?.map((mood) => (
+            {options?.mood_options?.map((mood) => (
               <button
                 key={mood.value}
                 type="button"
@@ -179,13 +179,13 @@ const DailyCheckin = ({ onCheckinComplete }) => {
         </div>
 
         {/* Energy Level */}
-        <div className="form-group">
+        <div className="form-group energy-group">
           <label>
             <FaBolt className="label-icon" />
             Energy Level
           </label>
           <div className="energy-options">
-            {options?.energy_choices?.map((energy) => (
+            {options?.energy_level_options?.map((energy) => (
               <button
                 key={energy.value}
                 type="button"
@@ -200,28 +200,28 @@ const DailyCheckin = ({ onCheckinComplete }) => {
         </div>
 
         {/* Physical Symptoms */}
-        <div className="form-group">
+        <div className="form-group symptoms-group">
           <label>
             <FaHeartbeat className="label-icon" />
             Physical Symptoms
           </label>
           <p className="field-hint">Select all that apply</p>
           <div className="symptoms-grid">
-            {options?.physical_symptoms?.map((symptom) => (
+            {options?.physical_symptom_options?.map((symptom) => (
               <button
                 key={symptom.value}
                 type="button"
                 className={`symptom-option ${formData.physical_symptoms.includes(symptom.value) ? "selected" : ""}`}
                 onClick={() => handleMultiSelect("physical_symptoms", symptom.value)}
               >
-                {symptom.label}
+                {getSymptomEmoji(symptom.value)} {symptom.label}
               </button>
             ))}
           </div>
         </div>
 
         {/* Notes */}
-        <div className="form-group">
+        <div className="form-group notes-group">
           <label>Anything else you'd like me to know today?</label>
           <textarea
             value={formData.user_notes}
@@ -263,6 +263,15 @@ const getMoodEmoji = (moodValue) => {
     overwhelmed: "😵"
   };
   return emojiMap[moodValue] || "😐";
+};
+
+const getSymptomEmoji = (value) => {
+  const map = {
+    cramps: "🌀", headache: "🤕", bloating: "🫧",
+    breast_tenderness: "🔴", fatigue: "😴", acne: "🩹",
+    back_pain: "🔴", nausea: "🤢", no_symptoms: "✅",
+  };
+  return map[value] || "•";
 };
 
 export default DailyCheckin;
