@@ -372,8 +372,8 @@ const AIChatbot = () => {
             >
               {history.length === 0 && !loading && (
                 <div className="ai-chatbot-welcome">
-                  <span className="welcome-orbit" aria-hidden />
-                  <FaRobot className="welcome-icon" />
+                  {/* <span className="welcome-orbit" aria-hidden />
+                  <FaRobot className="welcome-icon" /> */}
                   <p>
                     Hi! I&apos;m your Nivara assistant. Ask about wellness, periods, mood, or
                     general health.
