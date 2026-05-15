@@ -37,6 +37,7 @@ import CreateBooking from "./pages/DoctorConsultation/CreateBooking/CreateBookin
 import Payment from "./pages/DoctorConsultation/Payment/Payment";
 import MyBookings from "./pages/DoctorConsultation/MyBookings/MyBookings";
 import AIChatbot from "./pages/AIChatbot/AIChatbot";
+import HealthAwareness from "./pages/HealthAwareness/HealthAwareness";
 
 // Stress Relief Activities (Uncomment if these exist)
 // import Games from "./components/StressRelief/Games/Games";
@@ -79,6 +80,7 @@ function App() {
             <Route path="/doctor-consultation/booking/:bookingId/pay" element={<Payment />} />
             <Route path="/doctor-consultation/bookings" element={<MyBookings />} />
             <Route path="/chat" element={<AIChatbot />} />
+            <Route path="/health-awareness" element={<HealthAwareness />} />
             {/* <Route path="/therapy-booking" element={<TherapyBooking />} /> */}
 
             {/* Stress Relief */}
