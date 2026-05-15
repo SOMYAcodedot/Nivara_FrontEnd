@@ -2,9 +2,9 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  FaChartLine, FaRobot, FaGamepad, FaCalendarCheck,
+  FaChartLine, FaRobot, FaCalendarCheck,
   FaSmile, FaMeh, FaFrown, FaArrowRight, FaHeart,
-  FaFemale, FaLeaf, FaFileAlt,
+  FaFemale, FaLeaf, FaFileAlt, FaNewspaper,
 } from "react-icons/fa";
 import NivaraButterflyMark from "../../components/NivaraButterflyMark/NivaraButterflyMark";
 import AnimatedStatNumber from "../../components/AnimatedStatNumber";
@@ -57,7 +57,7 @@ const Dashboard = () => {
     { title: "Mood Tracking",       description: "Log and analyze your daily moods",                       icon: <FaChartLine />,    color: "#4CAF50", gradient: "linear-gradient(135deg,#43a047,#66bb6a)", link: "/mood-tracker" },
     { title: "Cycle Tracking",      description: "Track your menstrual cycle and wellness",               icon: <FaFemale />,       color: "#E91E63", gradient: "linear-gradient(135deg,#e91e63,#f06292)", link: "/cycle-tracker" },
     { title: "AI Chatbot",          description: "Talk to our AI mental health assistant",                icon: <FaRobot />,        color: "#667eea", gradient: "linear-gradient(135deg,#667eea,#764ba2)", link: "/chat", pulse: true },
-    { title: "Stress Relief",       description: "Games and activities to relax",                         icon: <FaGamepad />,      color: "#FF6B6B", gradient: "linear-gradient(135deg,#ff6b6b,#ff8e53)", link: "/stress-relief" },
+    { title: "Health Awareness",    description: "Women's health articles and wellness education",        icon: <FaNewspaper />,    color: "#a78bfa", gradient: "linear-gradient(135deg,#7c3aed,#ec4899)", link: "/health-awareness" },
     { title: "Doctor Consultation", description: "Book consultations with women's health specialists",    icon: <FaCalendarCheck />, color: "#f093fb", gradient: "linear-gradient(135deg,#f093fb,#f5576c)", link: "/doctor-consultation" },
     { title: "Lifestyle Intelligence", description: "Personalized yoga, diet, sleep & emotional tips",   icon: <FaLeaf />,         color: "#26a69a", gradient: "linear-gradient(135deg,#26a69a,#42b3d5)", link: "/lifestyle-intelligence" },
   ];
@@ -78,9 +78,9 @@ const Dashboard = () => {
   const randomTip = wellnessTips[Math.floor(Math.random() * wellnessTips.length)];
 
   const stats = [
-    { icon: <NivaraButterflyMark className="stat-butterfly" decorative />, value: "7",   label: "Day Streak",           gradient: "linear-gradient(135deg,#667eea,#764ba2)", progress: 70 },
-    { icon: <FaSmile />,                                                    value: "85%", label: "Positive Moods",       gradient: "linear-gradient(135deg,#f093fb,#f5576c)", progress: 85 },
-    { icon: <FaCalendarCheck />,                                            value: "12",  label: "Sessions Completed",   gradient: "linear-gradient(135deg,#26a69a,#42b3d5)", progress: 60 },
+    { icon: <NivaraButterflyMark className="stat-butterfly" decorative />, value: "5",   label: "Day Streak",           gradient: "linear-gradient(135deg,#667eea,#764ba2)", progress: 70 },
+    { icon: <FaSmile />,                                                    value: "65%", label: "Positive Moods",       gradient: "linear-gradient(135deg,#f093fb,#f5576c)", progress: 85 },
+    { icon: <FaCalendarCheck />,                                            value: "7",  label: "Sessions Completed",   gradient: "linear-gradient(135deg,#26a69a,#42b3d5)", progress: 60 },
   ];
 
   return (
