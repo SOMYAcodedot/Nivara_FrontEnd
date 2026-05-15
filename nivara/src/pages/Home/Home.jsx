@@ -6,6 +6,7 @@ import NivaraButterflyMark from "../../components/NivaraButterflyMark/NivaraButt
 import AnimatedStatNumber from "../../components/AnimatedStatNumber";
 import Carousel from "../../components/Carousel/Carousel";
 import HeroOrbit from "./components/HeroOrbit";
+import { isAuthenticated } from "../../auth";
 import "./Home.css";
 
 const features = [
@@ -14,30 +15,35 @@ const features = [
     info: "Get real-time emotional support and mental health guidance through intelligent AI conversations.",
     color: "#667eea",
     icon: <FaRobot />,
+    route: "/chat",
   },
   {
     title: "Personalized Therapy",
     info: "AI-generated CBT exercises and therapy modules tailored to your individual needs.",
     color: "#f093fb",
     icon: <NivaraButterflyMark variant="mono" decorative />,
+    route: "/lifestyle-intelligence",
   },
   {
     title: "Mood Tracking",
     info: "Monitor your mental state with interactive mood logs and trend analysis.",
     color: "#4CAF50",
     icon: <FaChartLine />,
+    route: "/mood-tracker",
   },
   {
     title: "24/7 Counseling",
     info: "Connect with professionals via chat, call, or video sessions anytime.",
     color: "#FF6B6B",
     icon: <FaHeadset />,
+    route: "/doctor-consultation",
   },
   {
     title: "Smart Assessments",
     info: "Guided mental health evaluations with personalized action plans.",
     color: "#45B7D1",
     icon: <FaClipboardCheck />,
+    route: "/health-report",
   },
 ];
 
@@ -167,7 +173,7 @@ const Home = () => {
               </div>
               <h3>{feature.title}</h3>
               <p>{feature.info}</p>
-              <Link to="/signup" className="feature-link">
+              <Link to={isAuthenticated() ? feature.route : "/signup"} className="feature-link">
                 Learn More <FaArrowRight />
               </Link>
             </div>
